@@ -67,7 +67,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Swamp Glider", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
@@ -92,10 +92,10 @@ int main()
 		// Set up vertex data 
 		GLfloat vertices[] = {
 			// coordinates			// color			// texture
-			0.25f,  0.5f,  0.0f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,
-			-0.75f,  0.5f,  0.0f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,
-			-0.25f, -0.5f,  0.0f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,
-			0.75f, -0.5f,  0.0f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,
+			0.5f,  0.5f,  0.0f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,
+			-0.5f,  0.5f,  0.0f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,
+			-0.5f, -0.5f,  0.0f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,
+			0.5f, -0.5f,  0.0f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,
 		};
 
 		GLuint indices[] = {
@@ -141,8 +141,8 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// prepare textures
-		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "iipw.png");
-		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
+		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "../Docs/Pictures/szkic_przod.png");
+		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "../Docs/Pictures/szkic_przod.png");
 
 		// main event loop
 		while (!glfwWindowShouldClose(window))
