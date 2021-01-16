@@ -4,12 +4,13 @@
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
-using namespace std;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const GLuint WIDTH = 800, HEIGHT = 600;
+#include "Camera.h"
+
+using namespace std;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -67,19 +68,29 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Swamp Glider", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Swamp Glider", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
 		glfwSetKeyCallback(window, key_callback);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK)
 			throw exception("GLEW Initialization failed");
 
-		glViewport(0, 0, WIDTH, HEIGHT);
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		glEnable(GL_DEPTH_TEST);
+
+		// camera setup
+		glm::vec3 positionVector = glm::vec3(-10, 2, -10);
+		GLfloat hAngle = 0.785f;
+		GLfloat vAngle = 0.0f;
+		GLfloat initialFoV = 45.0f;
+		GLfloat movementSpeed = 0.05f;
+		GLfloat mouseSpeed = 0.005f;
+		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
 
 		// Let's check what are maximum parameters counts
 		GLint nrAttributes;
@@ -210,17 +221,10 @@ int main()
 				rot_angle -= 360.0f;
 			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
-			glm::mat4 camRot;
-			camRot = glm::rotate(camRot, glm::radians(rot_angle),
-				glm::vec3(0.0, 1.0, 0.0));
-			glm::vec3 cameraPos = glm::vec3(camRot * glm::vec4(0.0f, 0.0f, -3.0f, 1.0f));
-			glm::mat4 view;
-			glm::mat4 projection;
-			view = glm::lookAt(cameraPos,
-				glm::vec3(0.0f, 0.0f, 0.0f),
-				glm::vec3(0.0f, 1.0f, 0.0f));
-			projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+			
+			camera.refresh();
+			glm::mat4 view = camera.getViewMatrix();
+			glm::mat4 projection = PROJECTION_MATRIX;
 
 			GLuint viewLoc = glGetUniformLocation(theProgram.get_programID(), "view");
 			GLuint projLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
