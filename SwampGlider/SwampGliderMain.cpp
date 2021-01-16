@@ -216,7 +216,7 @@ int main()
 			glm::mat4 trans;
 			static GLfloat rot_angle = 0.0f;
 			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(1.0, 0.0, 0.0));
-			rot_angle += 0.01f;
+			rot_angle += 1.0f;
 			if (rot_angle >= 360.0f)
 				rot_angle -= 360.0f;
 			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
