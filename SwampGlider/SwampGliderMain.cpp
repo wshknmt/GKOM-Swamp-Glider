@@ -10,6 +10,7 @@
 
 #include "Camera.h"
 #include "Glider.h"
+#include "Water.h"
 
 using namespace std;
 
@@ -72,6 +73,11 @@ int main() {
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");
 
+		// water
+		Water water("water.jpg");
+		water.scale(glm::vec3(100.0f, 2.0f, 100.0f));
+		water.move(glm::vec3(0.0f, -1.0f, 0.0f));
+
 		// glider, duuh
 		Glider glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		glider.scale(glm::vec3(0.0f, 1.0f, 0.0f));
@@ -89,6 +95,7 @@ int main() {
 			textureShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
+			water.draw(textureShaders.get_programID());
 
 			colorShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);

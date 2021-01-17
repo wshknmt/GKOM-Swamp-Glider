@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png" />
+    <Image Include="water.jpg" />
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +102,7 @@
     <ClInclude Include="Glider.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="shprogram.h" />
+    <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="swampGliderColor.frag" />
