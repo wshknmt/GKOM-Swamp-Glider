@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Camera.h"
+#include "Glider.h"
 
 using namespace std;
 
@@ -100,7 +101,9 @@ int main()
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 		// Build, compile and link shader program
-		ShaderProgram theProgram("SwampGlider.vert", "SwampGlider.frag");
+		//ShaderProgram theProgram("SwampGlider.vert", "SwampGlider.frag");
+		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
+		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");
 
 		// Set up vertex data 
 		GLfloat vertices[] = {
@@ -195,9 +198,36 @@ int main()
 		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "../Docs/Pictures/szkic_przod.png");
 		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "../Docs/Pictures/szkic_przod.png");
 
+
+
+		// glider, duuh
+		Glider glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		glider.scale(glm::vec3(0.0f, 1.0f, 0.0f));
+		glider.move(glm::vec3(0.0f, 0.01f, 0.0f));
+
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
+			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			camera.refresh();
+			glm::mat4 view = camera.getViewMatrix();
+			glm::mat4 projection = PROJECTION_MATRIX;
+
+			textureShaders.Use();
+			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
+
+			colorShaders.Use();
+			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
+			glider.draw(colorShaders.get_programID());
+
+			glfwPollEvents();
+			glfwSwapBuffers(window);
+
+			/*
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 
@@ -221,7 +251,7 @@ int main()
 				rot_angle -= 360.0f;
 			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-			
+
 			camera.refresh();
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = PROJECTION_MATRIX;
@@ -240,6 +270,8 @@ int main()
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
+
+			*/
 		}
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);

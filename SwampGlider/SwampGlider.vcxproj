@@ -92,18 +92,21 @@
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SwampGlider.frag" />
-    <None Include="SwampGlider.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="iipw.png" />
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="consts.h" />
+    <ClInclude Include="Glider.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="shprogram.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="swampGliderColor.frag" />
+    <None Include="swampGliderColor.vert" />
+    <None Include="swampGliderTexture.frag" />
+    <None Include="swampGliderTexture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

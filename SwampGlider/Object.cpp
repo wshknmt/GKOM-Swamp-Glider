@@ -92,7 +92,7 @@ void Object::draw(GLint shaderId) {
 	model = glm::rotate(model, glm::radians(rotationVector.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(rotationVector.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::scale(model, scaleVector);
-	glUniformMatrix4fv(glGetUniformLocation(shaderId, "Model"), 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &model[0][0]);
 
 	if (isTextured) {
 		glActiveTexture(GL_TEXTURE0);
