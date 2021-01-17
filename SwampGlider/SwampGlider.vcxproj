@@ -101,6 +101,7 @@
     <ClInclude Include="consts.h" />
     <ClInclude Include="Glider.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Rudder.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>

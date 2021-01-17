@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Glider.h"
 #include "Water.h"
+#include "Rudder.h"
 
 using namespace std;
 
@@ -83,6 +84,13 @@ int main() {
 		glider.scale(glm::vec3(0.0f, 1.0f, 0.0f));
 		glider.move(glm::vec3(0.0f, 0.01f, 0.0f));
 
+		//rudder
+		Rudder rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		rudder.move(glm::vec3(0.15f, -0.06f, 0.0f));
+		rudder.rotate(glm::vec3(0.0f, 180.0f, 0.0f));
+		rudder.scale(glm::vec3(0.75f, 1.0f, 0.0f));
+
+
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
@@ -101,6 +109,7 @@ int main() {
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			glider.draw(colorShaders.get_programID());
+			rudder.draw(colorShaders.get_programID());
 
 			glfwPollEvents();
 			glfwSwapBuffers(window);

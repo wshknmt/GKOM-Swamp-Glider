@@ -40,7 +40,6 @@ private:
 			4.0f,  1.0f,  1.0f,		1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//18
 			4.0f,  1.0f,  -1.0f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//19
 		};
-		//this->vertices = std::move(vertices);
 	}
 
 	void setIndices() override {
@@ -82,6 +81,5 @@ private:
 			12,16,17,
 			12,13,17
 		};
-		//this->indices = std::move(indices);
 	}
 };
