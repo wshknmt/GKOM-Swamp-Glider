@@ -13,15 +13,13 @@
 
 using namespace std;
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-GLuint LoadMipmapTexture(GLuint texId, const char* fname)
-{
+GLuint LoadMipmapTexture(GLuint texId, const char* fname) {
 	int width, height;
 	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
 	if (image == nullptr)
@@ -39,8 +37,7 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 	return texture;
 }
 
-ostream& operator<<(ostream& os, const glm::mat4& mx)
-{
+ostream& operator<<(ostream& os, const glm::mat4& mx) {
 	for (int row = 0; row < 4; ++row)
 	{
 		for (int col = 0; col < 4; ++col)
@@ -50,8 +47,7 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 	return os;
 }
 
-int main()
-{
+int main() {
 	{
 		glm::mat4 trans;
 		cout << trans << endl;
@@ -84,7 +80,7 @@ int main()
 
 		glEnable(GL_DEPTH_TEST);
 
-		// camera setup
+		// Setup camera object
 		glm::vec3 positionVector = glm::vec3(-10, 2, -10);
 		GLfloat hAngle = 0.785f;
 		GLfloat vAngle = 0.0f;
@@ -100,59 +96,9 @@ int main()
 		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
-		// Build, compile and link shader program
-		//ShaderProgram theProgram("SwampGlider.vert", "SwampGlider.frag");
+		// Build, compile and link shader programs
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");
-
-		// Set up vertex data 
-		GLfloat vertices[] = {
-			// coordinates			// color			// texture
-			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
-			-1.0f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//1
-			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//2
-			1.0f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//3
-
-			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
-			-1.0f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
-			0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
-			1.0f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
-
-			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
-			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
-			1.0f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
-			1.0f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
-
-			-1.0f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
-			-1.0f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
-			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
-			0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
-
-			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
-			-1.0f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
-			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
-			-1.0f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
-
-			1.0f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
-			1.0f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
-			0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
-			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
-		};
-
-		GLuint indices[] = {
-			0, 1, 2,
-			0, 2, 3,
-			4, 5, 6,
-			4, 6, 7,
-			8, 9, 10,
-			8, 10, 11,
-			12, 13, 14,
-			12, 14, 15,
-			16, 17, 18,
-			18, 17, 19,
-			20, 21, 22,
-			20, 22, 23
-		};
 
 		GLuint VBO, EBO, VAO;
 		glGenVertexArrays(1, &VAO);
@@ -162,11 +108,9 @@ int main()
 		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 		glBindVertexArray(VAO);
 
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		//glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 		// vertex geometry data
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);

@@ -39,4 +39,5 @@ public:
 	void move(const glm::vec3& vector);
 	void scale(const glm::vec3& vector);
 	void rotate(const glm::vec3& vector);
+	GLuint loadMipmapTexture(GLuint texId, const char* fname);
 };
