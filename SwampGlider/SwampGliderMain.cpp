@@ -14,7 +14,6 @@
 using namespace std;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
@@ -30,22 +29,14 @@ ostream& operator<<(ostream& os, const glm::mat4& mx) {
 }
 
 int main() {
-	{
-		glm::mat4 trans;
-		cout << trans << endl;
-		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		cout << trans << endl;
-	}
-	if (glfwInit() != GL_TRUE)
-	{
+	if (glfwInit() != GL_TRUE) {
 		cout << "GLFW initialization failed" << endl;
 		return -1;
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	try
-	{
+	try	{
 		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Swamp Glider", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
@@ -71,26 +62,15 @@ int main() {
 		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
 
 		// Let's check what are maximum parameters counts
-		GLint nrAttributes;
+		/*GLint nrAttributes;
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
 		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
-		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
+		cout << "Max texture coords allowed: " << nrAttributes << std::endl;*/
 
 		// Build, compile and link shader programs
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-
-		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
-		// Set the texture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// glider, duuh
 		Glider glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -118,9 +98,7 @@ int main() {
 			glfwPollEvents();
 			glfwSwapBuffers(window);
 		}
-	}
-	catch (exception ex)
-	{
+	} catch (exception ex) {
 		cout << ex.what() << endl;
 	}
 	glfwTerminate();
