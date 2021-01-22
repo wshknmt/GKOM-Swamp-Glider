@@ -1,12 +1,10 @@
 #version 330 core
-in vec2 TexCoord;
+
+in vec4 ourColor;
 
 out vec4 color;
 
-uniform vec4 Color;
-
-
 void main()
 {
-    color = Color;
+    color = ourColor;
 }

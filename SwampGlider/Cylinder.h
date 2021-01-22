@@ -23,9 +23,10 @@ private:
 			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(R);
 			// kolory
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
+			vertices.push_back(color[0]);
+			vertices.push_back(color[1]);
+			vertices.push_back(color[2]);
+			vertices.push_back(color[3]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
@@ -37,9 +38,10 @@ private:
 			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(-R);
 			// kolory
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
+			vertices.push_back(color[0]);
+			vertices.push_back(color[1]);
+			vertices.push_back(color[2]);
+			vertices.push_back(color[3]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
