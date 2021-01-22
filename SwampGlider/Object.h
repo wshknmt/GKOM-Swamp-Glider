@@ -21,9 +21,10 @@ class Object {
 
 	bool isTextured;
 	GLuint textureId;
-	glm::vec4 color;
+	
 
 protected:
+	glm::vec4 color;
 	vector<GLfloat> vertices;
 	vector<GLuint> indices;
 	string textureFileName;

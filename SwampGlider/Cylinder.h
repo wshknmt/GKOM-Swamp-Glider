@@ -1,0 +1,74 @@
+#pragma once
+
+#include "Object.h"
+#include "consts.h"
+#include <vector>
+
+class Cylinder : public Object {
+
+public:
+
+	Cylinder(glm::vec4 color) : Object(color) {
+		initialize();
+	}
+
+private:
+	void setVertices() override {
+
+		const GLfloat R = 1.0f;
+
+		for (int i = 0; i < CIRCLE_VERTS; ++i) {
+			// wspolrzedne x, y, z gornej podstawy
+			vertices.push_back(R * cos(glm::radians(360.0f / (CIRCLE_VERTS * i))));
+			vertices.push_back(R * sin(glm::radians(360.0f / (CIRCLE_VERTS * i))));
+			vertices.push_back(R);
+			// kolory
+			vertices.push_back(color[0]);
+			vertices.push_back(color[1]);
+			vertices.push_back(color[2]);
+			// tekstura
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+		}
+
+		for (int i = 0; i < CIRCLE_VERTS; ++i) {
+			// wspolrzedne x, y, z dolnej podstawy
+			vertices.push_back(R * cos(glm::radians(360.0f / (CIRCLE_VERTS * i))));
+			vertices.push_back(R * sin(glm::radians(360.0f / (CIRCLE_VERTS * i))));
+			vertices.push_back(-R);
+			// kolory
+			vertices.push_back(color[0]);
+			vertices.push_back(color[1]);
+			vertices.push_back(color[2]);
+			// tekstura
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+		}
+	}
+
+	void setIndices() override {
+		
+		for (int i = 0; i < CIRCLE_VERTS; ++i) {
+			// powierzchnia boczna
+			indices.push_back(i);
+			indices.push_back(i + 1);
+			indices.push_back(i + 1 + CIRCLE_VERTS);
+
+			indices.push_back(i);
+			indices.push_back(i + CIRCLE_VERTS);
+			indices.push_back(i + 1 + CIRCLE_VERTS);
+		}
+
+		for (int i = 0; i < CIRCLE_VERTS - 2; ++i) {
+			// podstawa gorna
+			indices.push_back(0);
+			indices.push_back(i + 1);
+			indices.push_back(i + 2);
+			// podstawa dolna
+			indices.push_back(CIRCLE_VERTS);
+			indices.push_back(i + 1 + CIRCLE_VERTS);
+			indices.push_back(i + 2 + CIRCLE_VERTS);
+		}
+
+	}
+};
