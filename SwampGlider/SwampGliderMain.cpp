@@ -13,6 +13,7 @@
 #include "Water.h"
 #include "Rudder.h"
 #include "Cylinder.h"
+#include "Pipe.h"
 
 using namespace std;
 
@@ -92,10 +93,16 @@ int main() {
 		rudder.scale(glm::vec3(0.75f, 1.0f, 0.0f));
 
 		//cylinder
-		Cylinder cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		Cylinder cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
 		cylinder.scale(glm::vec3(2.0f, 2.0f, 4.0f));
 		cylinder.rotate(glm::vec3(0.0f, 180.0f, 90.0f));
 		cylinder.move(glm::vec3(0.0f, 4.0f, 0.0f));
+
+		//pipe
+		Pipe pipe(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 0.25f);
+		pipe.scale(glm::vec3(2.0f, 2.0f, 4.0f));
+		pipe.rotate(glm::vec3(0.0f, 180.0f, 90.0f));
+		pipe.move(glm::vec3(0.0f, 4.0f, 0.0f));
 
 
 		// main event loop
@@ -117,7 +124,8 @@ int main() {
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			glider.draw(colorShaders.get_programID());
 			rudder.draw(colorShaders.get_programID());
-			cylinder.draw(colorShaders.get_programID());
+			//cylinder.draw(colorShaders.get_programID());
+			pipe.draw(colorShaders.get_programID());
 
 			glfwPollEvents();
 			glfwSwapBuffers(window);
