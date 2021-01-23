@@ -108,8 +108,14 @@ void Object::move(const glm::vec3& vector) {
 	this->positionVector += vector;
 }
 
-void Object::scale(const glm::vec3& vector) {
+/*void Object::scale(const glm::vec3& vector) {
 	this->scaleVector += vector;
+}*/
+
+void Object::scale(const glm::vec3& vector) {
+	this->scaleVector[0] *= vector[0];
+	this->scaleVector[1] *= vector[1];
+	this->scaleVector[2] *= vector[2];
 }
 
 void Object::rotate(const glm::vec3& vector) {

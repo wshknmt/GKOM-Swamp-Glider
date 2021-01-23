@@ -26,8 +26,8 @@ private:
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// wspolrzedne x, y, z gornej podstawy
 			vertices.push_back(R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
-			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(R);
+			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
 			vertices.push_back(color[0]);
 			vertices.push_back(color[1]);
@@ -41,8 +41,8 @@ private:
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// wspolrzedne x, y, z gornej podstawy
 			vertices.push_back(R * minorRadiusRatio * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
-			vertices.push_back(R * minorRadiusRatio * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(R);
+			vertices.push_back(R * minorRadiusRatio * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
 			vertices.push_back(color[0]);
 			vertices.push_back(color[1]);
@@ -56,8 +56,8 @@ private:
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// wspolrzedne x, y, z gornej podstawy
 			vertices.push_back(R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
-			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(-R);
+			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
 			vertices.push_back(color[0]);
 			vertices.push_back(color[1]);
@@ -71,8 +71,8 @@ private:
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// wspolrzedne x, y, z gornej podstawy
 			vertices.push_back(R * minorRadiusRatio * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
-			vertices.push_back(R * minorRadiusRatio * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(-R);
+			vertices.push_back(R * minorRadiusRatio * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
 			vertices.push_back(color[0]);
 			vertices.push_back(color[1]);

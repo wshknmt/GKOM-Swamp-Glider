@@ -12,4 +12,4 @@ const glm::mat4 PROJECTION_MATRIX = glm::perspective(glm::radians(FIELD_OF_VIEW)
 // water
 const GLfloat WATER_TEX_REPS = 100.0f;
 
-const GLuint CIRCLE_VERTS = 36;
+const GLuint CIRCLE_VERTS = 128;

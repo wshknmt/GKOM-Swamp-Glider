@@ -21,14 +21,14 @@ public:
 private:
 	void setVertices() override {
 		this->vertices = {
-			0.0f,  0.1f,  0.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//0
-			0.0f,  0.1f,  0.2f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//1
-			0.0f,  1.0f,  0.2f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//2
-			0.0f,  1.0f,  0.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//3
-			1.0f, -0.25f, 0.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//4
-			1.0f, -0.25f, 0.2f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//5
-			1.0f,  1.3f,  0.2f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//6
-			1.0f,  1.3f,  0.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//7
+			0.0f,  0.1f,  -0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//0
+			0.0f,  0.1f,  0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//1
+			0.0f,  0.7f,  0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//2
+			0.0f,  0.7f,  -0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//3
+			1.0f, -0.25f, -0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//4
+			1.0f, -0.25f, 0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//5
+			1.0f,  1.0f,  0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//6
+			1.0f,  1.0f, - 0.1f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//7
 		};
 	}
 

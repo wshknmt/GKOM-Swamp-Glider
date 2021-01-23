@@ -31,12 +31,12 @@ private:
 			8.0f,  0.0f,  1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//9
 			8.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//10
 			8.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//11
-			0.5f,  0.25f, -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//12
-			0.5f,  0.25f, 1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//13
+			0.5f,  0.25f, -1.0f,	0.0f,	  1.0f,	 0.0f, 0.0f,				0.0f,  0.0f,	//12
+			0.5f,  0.25f, 1.0f,		0.0f,	  1.0f,	 0.0f, 0.0f,				0.0f,  0.0f,	//13
 			0.5f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//14
 			0.5f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//15
-			4.0f,  0.25f, -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//16
-			4.0f,  0.25f, 1.0f,		color[0], color[1],  color[2], color[3],    0.0f,  0.0f,	//17
+			4.0f,  0.25f, -1.0f,	0.0f, 1.0f,  0.0f, 0.0f,					0.0f,  0.0f,	//16
+			4.0f,  0.25f, 1.0f,		0.0f, 1.0f,  0.0f, 0.0f,				    0.0f,  0.0f,	//17
 			4.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//18
 			4.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//19
 		};

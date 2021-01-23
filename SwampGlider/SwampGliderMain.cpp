@@ -61,7 +61,7 @@ int main() {
 		GLfloat hAngle = 0.785f;
 		GLfloat vAngle = 0.0f;
 		GLfloat initialFoV = 45.0f;
-		GLfloat movementSpeed = 0.05f;
+		GLfloat movementSpeed = 0.09f;
 		GLfloat mouseSpeed = 0.005f;
 		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
 
@@ -78,31 +78,32 @@ int main() {
 
 		// water
 		Water water("water.jpg");
-		water.scale(glm::vec3(100.0f, 2.0f, 100.0f));
+		water.scale(glm::vec3(100.0f, 3.0f, 100.0f));
 		water.move(glm::vec3(0.0f, -1.0f, 0.0f));
 
 		// glider, duuh
 		Glider glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		glider.scale(glm::vec3(0.0f, 1.0f, 0.0f));
+		glider.scale(glm::vec3(1.0f, 2.0f, 1.0f));
 		glider.move(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//rudder
 		Rudder rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		rudder.move(glm::vec3(0.15f, -0.06f, 0.0f));
 		rudder.rotate(glm::vec3(0.0f, 180.0f, 0.0f));
-		rudder.scale(glm::vec3(0.75f, 1.0f, 0.0f));
+		rudder.scale(glm::vec3(1.75f, 2.0f, 1.0f));
+		
 
 		//cylinder
-		Cylinder cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-		cylinder.scale(glm::vec3(2.0f, 2.0f, 4.0f));
-		cylinder.rotate(glm::vec3(0.0f, 180.0f, 90.0f));
-		cylinder.move(glm::vec3(0.0f, 4.0f, 0.0f));
+		Cylinder cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		cylinder.scale(glm::vec3(0.2f, 0.5f, 0.2f));
+		cylinder.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder.move(glm::vec3(0.24f, 2.0f, 0.0f));
 
 		//pipe
-		Pipe pipe(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 0.25f);
-		pipe.scale(glm::vec3(2.0f, 2.0f, 4.0f));
-		pipe.rotate(glm::vec3(0.0f, 180.0f, 90.0f));
-		pipe.move(glm::vec3(0.0f, 4.0f, 0.0f));
+		Pipe pipe(glm::vec4(1.0f, 215.0f/255.0f, 0.0f, 1.0f), 0.9f);
+		pipe.scale(glm::vec3(1.5f, 0.27f, 1.5f));
+		pipe.rotate(glm::vec3(0.0f, 0.0f, 90.0f));
+		pipe.move(glm::vec3(0.22f, 3.9f, 0.0f));
 
 
 		// main event loop
@@ -124,7 +125,7 @@ int main() {
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			glider.draw(colorShaders.get_programID());
 			rudder.draw(colorShaders.get_programID());
-			//cylinder.draw(colorShaders.get_programID());
+			cylinder.draw(colorShaders.get_programID());
 			pipe.draw(colorShaders.get_programID());
 
 			glfwPollEvents();
