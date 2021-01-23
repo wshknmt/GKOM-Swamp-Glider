@@ -42,6 +42,10 @@ void Camera::refresh() {
 		positionVector += up * movementSpeed;
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 		positionVector -= up * movementSpeed;
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+		positionVector += direction * movementSpeed * 10.0f;
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+		positionVector -= direction * movementSpeed * 10.0f;
 
 	ViewMatrix = glm::lookAt(positionVector, positionVector + direction, up);
 }

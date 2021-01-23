@@ -8,12 +8,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <cstdlib>
+#include <cstdio>
+#include <ctime>
+
 #include "Camera.h"
 #include "Glider.h"
 #include "Water.h"
 #include "Rudder.h"
 #include "Cylinder.h"
 #include "Pipe.h"
+#include "Cone.h"
 
 using namespace std;
 
@@ -33,6 +38,7 @@ ostream& operator<<(ostream& os, const glm::mat4& mx) {
 }
 
 int main() {
+	srand(time(NULL));
 	if (glfwInit() != GL_TRUE) {
 		cout << "GLFW initialization failed" << endl;
 		return -1;
@@ -78,13 +84,14 @@ int main() {
 
 		// water
 		Water water("water.jpg");
-		water.scale(glm::vec3(100.0f, 3.0f, 100.0f));
+		water.scale(glm::vec3(200.0f, 3.0f, 200.0f));
 		water.move(glm::vec3(0.0f, -1.0f, 0.0f));
 
 		// glider, duuh
 		Glider glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		glider.scale(glm::vec3(1.0f, 2.0f, 1.0f));
 		glider.move(glm::vec3(0.0f, 0.01f, 0.0f));
+		//glider.rotate(glm::vec3(0.0f, 90.0f, 0.0f));
 
 		//rudder
 		Rudder rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -99,15 +106,41 @@ int main() {
 		cylinder.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		cylinder.move(glm::vec3(0.24f, 2.0f, 0.0f));
 
+		//cylinder2
+		Cylinder cylinder2(glm::vec4(0.0f, 0.5f, 0.5f, 1.0f));
+		cylinder2.scale(glm::vec3(0.07f, 1.5f, 0.07f));
+		cylinder2.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder2.move(glm::vec3(0.24f, 3.85f, 0.0f));
+
 		//pipe
 		Pipe pipe(glm::vec4(1.0f, 215.0f/255.0f, 0.0f, 1.0f), 0.9f);
 		pipe.scale(glm::vec3(1.5f, 0.27f, 1.5f));
 		pipe.rotate(glm::vec3(0.0f, 0.0f, 90.0f));
 		pipe.move(glm::vec3(0.22f, 3.9f, 0.0f));
 
+		float numberOfSmiglo = 9;
+		vector <Cone> wiatrak;
+		for (int i = 0; i < numberOfSmiglo; i++) {
+			Cone cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+			cone.scale(glm::vec3(0.05f, 1.3f, 0.2f));
+			cone.move(glm::vec3(0.1f, 3.9f, 0.0f));
+			cone.rotate(glm::vec3(i * (360.0f/numberOfSmiglo), 0.0f, 0.0f));
+			wiatrak.push_back(cone);
+		}
+
+		//wulkan
+		Cone wulkan(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f));
+		wulkan.scale(glm::vec3(10.0f, 20.0f, 10.0f));
+		wulkan.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		wulkan.move(glm::vec3(80.0f, 0.0f, 0.0f));
+
+
 
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
+			wulkan.move(glm::vec3(-0.05f, 0.0f, 0.0f));
+			water.move(glm::vec3(-0.05f, 0.0f, 0.0f));
+
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -126,7 +159,14 @@ int main() {
 			glider.draw(colorShaders.get_programID());
 			rudder.draw(colorShaders.get_programID());
 			cylinder.draw(colorShaders.get_programID());
+			cylinder2.draw(colorShaders.get_programID());
+			wulkan.draw(colorShaders.get_programID());
 			pipe.draw(colorShaders.get_programID());
+
+			for (int i = 0; i < numberOfSmiglo; i++) {
+				wiatrak[i].draw(colorShaders.get_programID());
+				wiatrak[i].rotate(glm::vec3(0.5f, 0.0f, 0.0f));
+			}
 
 			glfwPollEvents();
 			glfwSwapBuffers(window);

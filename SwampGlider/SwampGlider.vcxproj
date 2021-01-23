@@ -94,10 +94,10 @@
   <ItemGroup>
     <Image Include="iipw.png" />
     <Image Include="water.jpg" />
-    <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cone.h" />
     <ClInclude Include="consts.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Glider.h" />
