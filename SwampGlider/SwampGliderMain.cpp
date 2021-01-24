@@ -105,11 +105,10 @@ int main() {
 		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
 
 		// lighting
-		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+		glm::vec3 lightPos(0.0f, 10.0f, 0.0f);
 		glm::vec3 cubePos(5.0f, 2.0f, -3.0f);
 		Shader lightingShader("lighting.vert", "lighting.frag");
 		Shader lightSourceShader("lightSource.vert", "lightSource.frag");
-		lightingShader.setVec3("lightPos", lightPos);
 
 		float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -519,6 +518,7 @@ int main() {
 			lightingShader.use();
 			lightingShader.setVec3("objectColor", 0.0f, 0.9f, 0.9f);
 			lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+			lightingShader.setVec3("lightPos", lightPos);
 
 			// world transformation
 			glm::mat4 model = glm::mat4(1.0f);
