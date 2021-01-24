@@ -14,4 +14,4 @@ const GLfloat WATER_TEX_REPS = 100.0f;
 
 const GLuint CIRCLE_VERTS = 128;
 
-const GLfloat WINGS_NUM = 10.0f;
+const GLfloat WINGS_NUM = 6.0f;

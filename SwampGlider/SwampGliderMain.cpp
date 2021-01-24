@@ -132,6 +132,29 @@ int main() {
 		cylinder2->scale(glm::vec3(0.07f, 1.45f, 0.07f));
 		cylinder2->setParent(pipe);
 
+		//cylinder3
+		Cylinder* cylinder3 = new Cylinder(glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+		objects.push_back(cylinder3);
+		cylinder3->move(glm::vec3(0.35f, 2.0f, 0.0f));
+		cylinder3->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder3->scale(glm::vec3(0.2, 0.25f, 0.2f));
+		cylinder3->setParent(glider);
+
+		//cylinder4
+		Cylinder* cylinder4 = new Cylinder(glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
+		objects.push_back(cylinder4);
+		cylinder4->move(glm::vec3(0.0f, 0.5f, 0.0f));
+		cylinder4->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder4->scale(glm::vec3(0.04, 0.25f, 0.04f));
+		cylinder4->setParent(cylinder3);
+
+		//pipe2
+		Pipe* pipe2 = new Pipe(glm::vec4(1.0f, 115.0f / 255.0f, 0.2f, 1.0f), 0.7f);
+		objects.push_back(pipe2);
+		pipe2->move(glm::vec3(0.0f, 0.6f, 0.0f));
+		pipe2->scale(glm::vec3(0.045f, 0.4f, 0.4f));
+		pipe2->setParent(cylinder4);
+
 		vector<Cone*> propeller;
 		for (int i = 0; i < (int)WINGS_NUM; i++) {
 			Cone* cone = new Cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
@@ -143,6 +166,18 @@ int main() {
 			objects.push_back(cone);
 
 		}
+		GLfloat steerPosition = 0.0f;
+		vector<Cone*> propeller2;
+		for (int i = 0; i < 3; i++) {
+			Cone* cone = new Cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+			cone->move(glm::vec3(0.0f, 0.0f, 0.0f));
+			cone->rotate(glm::vec3(i * (360.0f / 3), 0.0f, 0.0f));
+			cone->scale(glm::vec3(0.05f, 0.4f, 0.07f));
+			cone->setParent(pipe2);
+			propeller2.push_back(cone);
+			objects.push_back(cone);
+
+		}
 
 		//volcano
 		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f));
@@ -150,8 +185,6 @@ int main() {
 		volcano->scale(glm::vec3(10.0f, 20.0f, 10.0f));
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
-
-
 
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
@@ -163,13 +196,39 @@ int main() {
 			}
 			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 				glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
-			}
+				for (int i = 0; i < 3; i++) {
+					propeller2[i]->rotate(glm::vec3(5.0f, 0.0f, 0.0f));
+				}
+				steerPosition -= 5.0f;
+				if (rudder->rudderCounter <= 45.0f) {
+					rudder->rotate(glm::vec3(0.0f, -2.0f, 0.0f));
+					rudder->rudderCounter += 2.0f;
+				}
+			} 
 			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 				glider->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
+				for (int i = 0; i < 3; i++) {
+					propeller2[i]->rotate(glm::vec3(-5.0f, 0.0f, 0.0f));
+				}
+				steerPosition += 5.0f;
+				if (rudder->rudderCounter >= -45.0f) {
+					rudder->rotate(glm::vec3(0.0f, 2.0f, 0.0f));
+					rudder->rudderCounter -= 2.0f;
+				}
 			}
+			if (glfwGetKey(window, GLFW_KEY_LEFT) != GLFW_PRESS && glfwGetKey(window, GLFW_KEY_RIGHT) != GLFW_PRESS) {
+				rudder->rotate(glm::vec3(0.0f, rudder->rudderCounter, 0.0f));
+				rudder->rudderCounter = 0.0f;
+				for (int i = 0; i < 3; i++) {
+					propeller2[i]->rotate(glm::vec3(steerPosition, 0.0f, 0.0f));
+					
+				}
+				steerPosition = 0.0f;
+				
 
+			}
 			for (int i = 0; i < (int)WINGS_NUM; i++) {
-				propeller[i]->rotate(glm::vec3(0.5f, 0.0f, 0.0f));
+				propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
 			}
 
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
