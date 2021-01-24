@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
+#include <vector>
 
 #include "Camera.h"
 #include "Glider.h"
@@ -46,6 +47,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	std::vector<Object*> objects;
 	try	{
 		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Swamp Glider", nullptr, nullptr);
 		if (window == nullptr)
@@ -80,66 +82,95 @@ int main() {
 
 		// Build, compile and link shader programs
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
-		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");
+		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");		
 
 		// water
-		Water water("water.jpg");
-		water.scale(glm::vec3(200.0f, 3.0f, 200.0f));
-		water.move(glm::vec3(0.0f, -1.0f, 0.0f));
+		Water* water = new Water("water.jpg");
+		objects.push_back(water);
+		water->scale(glm::vec3(200.0f, 3.0f, 200.0f));
+		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
 
 		// glider, duuh
-		Glider glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		glider.scale(glm::vec3(1.0f, 2.0f, 1.0f));
-		glider.move(glm::vec3(0.0f, 0.01f, 0.0f));
+		Glider* glider = new Glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		objects.push_back(glider);
+		glider->move(glm::vec3(-3.0f, 0.01f, 0.0f));
+		glider->scale(glm::vec3(1.0f, 2.0f, 1.0f));
 		//glider.rotate(glm::vec3(0.0f, 90.0f, 0.0f));
 
 		//rudder
-		Rudder rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-		rudder.move(glm::vec3(0.15f, -0.06f, 0.0f));
-		rudder.rotate(glm::vec3(0.0f, 180.0f, 0.0f));
-		rudder.scale(glm::vec3(1.75f, 2.0f, 1.0f));
+		Rudder* rudder = new Rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		objects.push_back(rudder);
+		rudder->move(glm::vec3(-3.9f, -0.05f, 0.0f));
+		rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
+		rudder->scale(glm::vec3(1.3f, 2.0f, 1.0f));
+		rudder->setParent(glider);
+		//rudder->move(glm::vec3(0.15f, -0.06f, 0.0f));
+		//rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
+		//rudder->scale(glm::vec3(1.75f, 2.0f, 1.0f));
 		
 
 		//cylinder
-		Cylinder cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-		cylinder.scale(glm::vec3(0.2f, 0.5f, 0.2f));
-		cylinder.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		cylinder.move(glm::vec3(0.24f, 2.0f, 0.0f));
-
-		//cylinder2
-		Cylinder cylinder2(glm::vec4(0.0f, 0.5f, 0.5f, 1.0f));
-		cylinder2.scale(glm::vec3(0.07f, 1.5f, 0.07f));
-		cylinder2.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		cylinder2.move(glm::vec3(0.24f, 3.85f, 0.0f));
+		Cylinder* cylinder = new Cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		objects.push_back(cylinder);
+		cylinder->move(glm::vec3(-3.76f, 2.3f, 0.0f));
+		cylinder->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder->scale(glm::vec3(0.2f, 0.5f, 0.2f));
+		cylinder->setParent(glider);
 
 		//pipe
-		Pipe pipe(glm::vec4(1.0f, 215.0f/255.0f, 0.0f, 1.0f), 0.9f);
-		pipe.scale(glm::vec3(1.5f, 0.27f, 1.5f));
-		pipe.rotate(glm::vec3(0.0f, 0.0f, 90.0f));
-		pipe.move(glm::vec3(0.22f, 3.9f, 0.0f));
+		Pipe* pipe = new Pipe(glm::vec4(1.0f, 215.0f/255.0f, 0.0f, 1.0f), 0.9f);
+		objects.push_back(pipe);
+		pipe->move(glm::vec3(-3.75f, 4.2f, 0.0f));
+		pipe->scale(glm::vec3(0.27f, 1.5f, 1.5f));
+		pipe->setParent(glider);
 
-		float numberOfSmiglo = 9;
-		vector <Cone> wiatrak;
-		for (int i = 0; i < numberOfSmiglo; i++) {
-			Cone cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
-			cone.scale(glm::vec3(0.05f, 1.3f, 0.2f));
-			cone.move(glm::vec3(0.1f, 3.9f, 0.0f));
-			cone.rotate(glm::vec3(i * (360.0f/numberOfSmiglo), 0.0f, 0.0f));
-			wiatrak.push_back(cone);
+		//cylinder2
+		Cylinder* cylinder2 = new Cylinder(glm::vec4(0.0f, 0.5f, 0.5f, 1.0f));
+		objects.push_back(cylinder2);
+		cylinder2->move(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder2->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		cylinder2->scale(glm::vec3(0.07f, 1.45f, 0.07f));
+		cylinder2->setParent(pipe);
+
+		vector<Cone*> propeller;
+		for (int i = 0; i < (int)WINGS_NUM; i++) {
+			Cone* cone = new Cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+			cone->move(glm::vec3(-0.15f, 0.0f, 0.0f));
+			cone->rotate(glm::vec3(i * (360.0f/WINGS_NUM), 0.0f, 0.0f));
+			cone->scale(glm::vec3(0.05f, 1.3f, 0.2f));
+			cone->setParent(pipe);
+			propeller.push_back(cone);
+			objects.push_back(cone);
+
 		}
 
-		//wulkan
-		Cone wulkan(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f));
-		wulkan.scale(glm::vec3(10.0f, 20.0f, 10.0f));
-		wulkan.rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		wulkan.move(glm::vec3(80.0f, 0.0f, 0.0f));
+		//volcano
+		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f));
+		objects.push_back(volcano);
+		volcano->scale(glm::vec3(10.0f, 20.0f, 10.0f));
+		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
 
 
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
-			wulkan.move(glm::vec3(-0.05f, 0.0f, 0.0f));
-			water.move(glm::vec3(-0.05f, 0.0f, 0.0f));
+			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+				glider->move(glm::vec3(0.1f, 0.0f, 0.0f));
+			}
+			if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+				glider->move(glm::vec3(-0.1f, 0.0f, 0.0f));
+			}
+			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+				glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+				glider->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			for (int i = 0; i < (int)WINGS_NUM; i++) {
+				propeller[i]->rotate(glm::vec3(0.5f, 0.0f, 0.0f));
+			}
 
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -151,21 +182,19 @@ int main() {
 			textureShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
-			water.draw(textureShaders.get_programID());
-
+			
+			for (Object* obj : objects) {
+				if (obj->isTextured())
+					obj->draw(textureShaders.get_programID());
+			}
+			
 			colorShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
-			glider.draw(colorShaders.get_programID());
-			rudder.draw(colorShaders.get_programID());
-			cylinder.draw(colorShaders.get_programID());
-			cylinder2.draw(colorShaders.get_programID());
-			wulkan.draw(colorShaders.get_programID());
-			pipe.draw(colorShaders.get_programID());
-
-			for (int i = 0; i < numberOfSmiglo; i++) {
-				wiatrak[i].draw(colorShaders.get_programID());
-				wiatrak[i].rotate(glm::vec3(0.5f, 0.0f, 0.0f));
+			
+			for (Object* obj : objects) {
+				if (!(obj->isTextured()))
+					obj->draw(colorShaders.get_programID());
 			}
 
 			glfwPollEvents();
@@ -176,5 +205,7 @@ int main() {
 	}
 	glfwTerminate();
 
+	for (Object* obj : objects)
+		delete obj;
 	return 0;
 }

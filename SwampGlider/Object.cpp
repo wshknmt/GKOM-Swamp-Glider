@@ -1,18 +1,14 @@
 #include "Object.h"
-Object::Object() :
-	positionVector(glm::vec3(0.0f, 0.0f, 0.0f)),
-	rotationVector(glm::vec3(0.0f, 0.0f, 0.0f)),
-	scaleVector(glm::vec3(1.0f, 1.0f, 1.0f))
-{}
+Object::Object() : model(glm::mat4(1.0f)), scaling(glm::mat4(1.0f)), parent(nullptr) {}
 
 Object::Object(string textureName) : Object() {
 	this->textureFileName = textureName;
-	this->isTextured = true;
+	this->textured = true;
 }
 
 Object::Object(glm::vec4 color) : Object() {
 	this->color = color;
-	this->isTextured = false;
+	this->textured = false;
 }
 
 Object::~Object() {
@@ -53,7 +49,7 @@ void Object::initialize() {
 
 	glBindVertexArray(0);
 
-	if (isTextured) {
+	if (textured) {
 		// Set the texture wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Set texture wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -84,15 +80,15 @@ void Object::initialize() {
 }
 
 void Object::draw(GLint shaderId) {
-	glm::mat4 model = glm::mat4(1.0f);
-	model = translate(model, positionVector);
-	model = glm::rotate(model, glm::radians(rotationVector.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(rotationVector.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(rotationVector.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::scale(model, scaleVector);
-	glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &model[0][0]);
+	glm::mat4 drawnModel;
+	if (parent != nullptr) {
+		drawnModel = parent->getModel() * model * scaling;
+	} else {
+		drawnModel = model * scaling;
+	}
+	glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &drawnModel[0][0]);
 
-	if (isTextured) {
+	if (textured) {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		glUniform1i(glGetUniformLocation(shaderId, "Texture"), 0);
@@ -105,19 +101,35 @@ void Object::draw(GLint shaderId) {
 }
 
 void Object::move(const glm::vec3& vector) {
-	this->positionVector += vector;
+	model = glm::translate(model, vector);
+
 }
 
-/*void Object::scale(const glm::vec3& vector) {
-	this->scaleVector += vector;
-}*/
+void Object::move2(const glm::vec3& vector) {
+	model = translate(glm::mat4(1.0f), vector) * model;
+}
 
 void Object::scale(const glm::vec3& vector) {
-	this->scaleVector[0] *= vector[0];
-	this->scaleVector[1] *= vector[1];
-	this->scaleVector[2] *= vector[2];
+	scaling = glm::scale(scaling, vector);
 }
 
 void Object::rotate(const glm::vec3& vector) {
-	this->rotationVector += vector;
-} 
+	model = glm::rotate(model, glm::radians(vector.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
+}
+
+glm::mat4 Object::getModel() {
+	if (parent != nullptr)
+		return parent->getModel() * model;
+	else
+		return model;
+}
+
+void Object::setParent(Object* parent) {
+	this->parent = parent;
+}
+
+bool Object::isTextured() {
+	return textured;
+}

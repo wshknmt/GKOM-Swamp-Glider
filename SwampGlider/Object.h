@@ -19,15 +19,18 @@ class Object {
 	glm::vec3 scaleVector;
 	GLuint VAO, VBO, EBO;
 
-	bool isTextured;
+	bool textured;
 	GLuint textureId;
 	
+	glm::mat4 model;
+	glm::mat4 scaling;
 
 protected:
 	glm::vec4 color;
 	vector<GLfloat> vertices;
 	vector<GLuint> indices;
 	string textureFileName;
+	Object* parent;
 public:
 
 	Object();
@@ -38,7 +41,11 @@ public:
 	void initialize();
 	void draw(GLint shaderId);
 	void move(const glm::vec3& vector);
+	void move2(const glm::vec3& vector);
 	void scale(const glm::vec3& vector);
-	//void scale2(const glm::vec3& vector);
 	void rotate(const glm::vec3& vector);
+	void rotate2(const glm::vec3& vector);
+	glm::mat4 getModel();
+	void setParent(Object* parent);
+	bool isTextured();
 };
