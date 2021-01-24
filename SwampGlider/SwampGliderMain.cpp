@@ -104,10 +104,6 @@ int main() {
 		rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
 		rudder->scale(glm::vec3(1.3f, 2.0f, 1.0f));
 		rudder->setParent(glider);
-		//rudder->move(glm::vec3(0.15f, -0.06f, 0.0f));
-		//rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
-		//rudder->scale(glm::vec3(1.75f, 2.0f, 1.0f));
-		
 
 		//cylinder
 		Cylinder* cylinder = new Cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));

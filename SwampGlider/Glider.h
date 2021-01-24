@@ -20,8 +20,8 @@ private:
 
 		this->vertices = {
 			-4.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//0
-			-4.0f,  0.0f,  2.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//1
-			-4.0f,  1.0f,  2.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//2
+			-4.0f,  0.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//1
+			-4.0f,  1.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//2
 			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//3
 			3.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//4
 			3.0f,  0.0f,  2.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//5
@@ -32,8 +32,8 @@ private:
 			4.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//10
 			4.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//11
 			-3.5f,  0.25f, -1.0f,	0.0f,	  1.0f,	 0.0f, 0.0f,				0.0f,  0.0f,	//12
-			-3.5f,  0.25f, 1.0f,		0.0f,	  1.0f,	 0.0f, 0.0f,				0.0f,  0.0f,	//13
-			-3.5f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//14
+			-3.5f,  0.25f, 1.0f,	0.0f,	  1.0f,	 0.0f, 0.0f,				0.0f,  0.0f,	//13
+			-3.5f,  1.0f,  1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//14
 			-3.5f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	0.0f,  0.0f,	//15
 			0.0f,  0.25f, -1.0f,	0.0f, 1.0f,  0.0f, 0.0f,					0.0f,  0.0f,	//16
 			0.0f,  0.25f, 1.0f,		0.0f, 1.0f,  0.0f, 0.0f,				    0.0f,  0.0f,	//17

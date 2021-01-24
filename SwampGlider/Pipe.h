@@ -85,14 +85,6 @@ private:
 	}
 
 	void setIndices() override {
-
-		/*for (int i = 0; i < CIRCLE_VERTS - 2; ++i) {
-			// podstawa gorna
-			indices.push_back(0);
-			indices.push_back(i + 1);
-			indices.push_back(i + 2);
-		}*/
-
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// podstawa gorna
 			indices.push_back(i % CIRCLE_VERTS);

@@ -13,6 +13,8 @@ public:
 	}
 
 private:
+	glm::vec4 secondColor;
+
 	void setVertices() override {
 
 		const GLfloat R = 1.0f;
@@ -23,11 +25,6 @@ private:
 			vertices.push_back(0.0f);
 			vertices.push_back(-R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
-			/*vertices.push_back((rand() % 255) / 255.0f);
-			vertices.push_back((rand() % 255) / 255.0f);
-			vertices.push_back((rand() % 255) / 255.0f);
-			vertices.push_back((rand() % 255) / 255.0f);*/
-
 			vertices.push_back(color[0]);
 			vertices.push_back(color[1]);
 			vertices.push_back(color[2]);
@@ -42,10 +39,6 @@ private:
 		vertices.push_back(1.0f);
 		vertices.push_back(0.0f);
 		// kolory
-		/*vertices.push_back(1.0f);
-		vertices.push_back(127.0f/255.0f);
-		vertices.push_back(0);
-		vertices.push_back(color[3]);*/
 		vertices.push_back(1.0f);
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
@@ -53,21 +46,6 @@ private:
 		// tekstura
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
-
-		/*for (int i = 0; i < CIRCLE_VERTS; ++i) {
-			// wspolrzedne x, y, z gornej podstawy
-			vertices.push_back(R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
-			vertices.push_back(-R);
-			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
-			// kolory
-			vertices.push_back(color[0]);
-			vertices.push_back(color[1]);
-			vertices.push_back(color[2]);
-			vertices.push_back(color[3]);
-			// tekstura
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
-		}*/
 	}
 
 	void setIndices() override {
@@ -84,18 +62,6 @@ private:
 			indices.push_back(i % CIRCLE_VERTS);
 			indices.push_back((i + 1) % CIRCLE_VERTS);
 			indices.push_back(CIRCLE_VERTS);
-
-			/*indices.push_back(i % CIRCLE_VERTS);
-			indices.push_back(CIRCLE_VERTS + (i % CIRCLE_VERTS));
-			indices.push_back(CIRCLE_VERTS + ((i + 1) % CIRCLE_VERTS));*/
 		}
-
-		/*for (int i = 0; i < CIRCLE_VERTS - 2; ++i) {
-			// podstawa dolna
-			indices.push_back(CIRCLE_VERTS);
-			indices.push_back(i + 1 + CIRCLE_VERTS);
-			indices.push_back(i + 2 + CIRCLE_VERTS);
-		}*/
-
 	}
 };
