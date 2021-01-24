@@ -38,6 +38,27 @@ ostream& operator<<(ostream& os, const glm::mat4& mx) {
 	return os;
 }
 
+void spawnLily(std::vector<Object*> &objects, glm::vec3 position) {
+	Cone* stalk = new Cone(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	stalk->move(glm::vec3(position[0], position[1], position[2]));
+	stalk->rotate(glm::vec3(180.0f, 0.0f, 0.0f));
+	stalk->scale(glm::vec3(0.2f, 1.0f, 0.2f));
+
+	objects.push_back(stalk);
+
+	Pipe* flower = new Pipe(glm::vec4((rand() % 256) / 256.0f, (rand() % 256) / 256.0f, (rand() % 256) / 256.0f, 1.0f), 0.45f);
+	flower->rotate(glm::vec3(0.0f, 0.0f, 90.0f));
+	flower->scale(glm::vec3(0.1f, 0.4f, 0.4f));
+	flower->setParent(stalk);
+
+	objects.push_back(flower);
+}
+
+void generateLilies(std::vector<Object*>& objects, int numberOfLilies, glm::vec3 maxPositionVec) {
+	for (int i = 0; i < numberOfLilies; ++i)
+		spawnLily(objects, glm::vec3{ rand() % (int)maxPositionVec[0] * 1.0f, maxPositionVec[2], rand() % (int)maxPositionVec[1] * 1.0f});
+}
+
 int main() {
 	srand(time(NULL));
 	if (glfwInit() != GL_TRUE) {
@@ -152,14 +173,13 @@ int main() {
 
 		vector<Cone*> propeller;
 		for (int i = 0; i < (int)WINGS_NUM; ++i) {
-			Cone* cone = new Cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+			Cone* cone = new Cone(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 			cone->move(glm::vec3(-0.15f, 0.0f, 0.0f));
 			cone->rotate(glm::vec3(i * (360.0f/WINGS_NUM), 0.0f, 0.0f));
 			cone->scale(glm::vec3(0.05f, 1.3f, 0.2f));
 			cone->setParent(propellerGuard);
 			propeller.push_back(cone);
 			objects.push_back(cone);
-
 		}
 		GLfloat steerPosition = 0.0f;
 		vector<Cone*> steeringWheelInterior;
@@ -174,11 +194,15 @@ int main() {
 		}
 
 		//volcano
-		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f));
+		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		objects.push_back(volcano);
 		volcano->scale(glm::vec3(10.0f, 20.0f, 10.0f));
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
+
+		int numberOfLilies = rand() % 50;
+
+		generateLilies(objects, numberOfLilies, glm::vec3(50.0f, 50.0f, 1.4f));
 
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {

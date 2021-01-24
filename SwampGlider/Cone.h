@@ -8,7 +8,11 @@ class Cone : public Object {
 
 public:
 
-	Cone(glm::vec4 color) : Object(color) {
+	Cone(glm::vec4 color) : Object(color), secondColor(color) {
+		initialize();
+	}
+
+	Cone(glm::vec4 color, glm::vec4 secondColor) : Object(color), secondColor(secondColor) {
 		initialize();
 	}
 
@@ -39,10 +43,10 @@ private:
 		vertices.push_back(1.0f);
 		vertices.push_back(0.0f);
 		// kolory
-		vertices.push_back(1.0f);
-		vertices.push_back(0.0f);
-		vertices.push_back(0.0f);
-		vertices.push_back(color[3]);
+		vertices.push_back(secondColor[0]);
+		vertices.push_back(secondColor[1]);
+		vertices.push_back(secondColor[2]);
+		vertices.push_back(secondColor[3]);
 		// tekstura
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
