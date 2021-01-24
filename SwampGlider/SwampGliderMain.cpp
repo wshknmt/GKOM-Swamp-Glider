@@ -23,6 +23,8 @@
 #include "Circle.h"
 #include "Skybox.h"
 
+#include "shader.h"
+
 using namespace std;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
@@ -102,6 +104,86 @@ int main() {
 		GLfloat mouseSpeed = 0.005f;
 		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
 
+		// lighting
+		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+		glm::vec3 cubePos(5.0f, 2.0f, -3.0f);
+		Shader lightingShader("lighting.vert", "lighting.frag");
+		Shader lightSourceShader("lightSource.vert", "lightSource.frag");
+		lightingShader.setVec3("lightPos", lightPos);
+
+		float vertices[] = {
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+		};
+
+		// first, configure the cube's VAO (and VBO)
+		unsigned int VBO, cubeVAO;
+		glGenVertexArrays(1, &cubeVAO);
+		glGenBuffers(1, &VBO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindVertexArray(cubeVAO);
+
+		// position attribute
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+		// normal attribute
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+
+		// second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+		unsigned int lightCubeVAO;
+		glGenVertexArrays(1, &lightCubeVAO);
+		glBindVertexArray(lightCubeVAO);
+
+		// we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+
+		
 		// Build, compile and link shader programs
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");		
@@ -306,6 +388,7 @@ int main() {
 		generateLilies(objects, numberOfLilies);
 		
 		Skybox skybox = Skybox();
+
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
@@ -363,6 +446,33 @@ int main() {
 				}
 			}
 
+			// poruszanie szescianem przod tyl
+			if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
+				cubePos += glm::vec3(0.01f, 0.0f, 0.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
+				cubePos += glm::vec3(-0.01f, 0.0f, 0.0f);
+			}
+			// poruszanie szescianem lewo prawo
+			if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
+				cubePos += glm::vec3(0.0f, 0.0f, 0.01f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
+				cubePos += glm::vec3(0.0f, 0.0f, -0.01f);
+			}
+			// poruszanie szescianem gora dol
+			if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+				cubePos += glm::vec3(0.0f, 0.01f, 0.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
+				cubePos += glm::vec3(0.0f, -0.01f, 0.0f);
+			}
+
+
+			for (int i = 0; i < (int)WINGS_NUM; i++) {
+				propeller[i]->rotate(glm::vec3(0.5f, 0.0f, 0.0f));
+			}
+
 			for (int i = 0; i < wings.size(); i+=2) {
 				if (up) {
 					objects[wings[i]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
@@ -405,6 +515,41 @@ int main() {
 		
 			skybox.draw(projection, view);
 
+			// be sure to activate shader when setting uniforms/drawing objects
+			lightingShader.use();
+			lightingShader.setVec3("objectColor", 0.0f, 0.9f, 0.9f);
+			lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+
+			// world transformation
+			glm::mat4 model = glm::mat4(1.0f);
+			lightingShader.setMat4("model", model);
+
+			// view/projection transformations
+			lightingShader.use();
+			lightingShader.setMat4("projection", projection);
+			lightingShader.setMat4("view", view);
+			
+			// draw the cube
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePos);
+			model = glm::scale(model, glm::vec3(2.0f)); // a bigger cube
+			lightingShader.setMat4("model", model);
+			glBindVertexArray(cubeVAO);
+			glDrawArrays(GL_TRIANGLES, 0, 72);
+
+			// also draw the lamp object
+			lightSourceShader.use();
+			lightSourceShader.setMat4("projection", projection);
+			lightSourceShader.setMat4("view", view);
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, lightPos);
+			model = glm::scale(model, glm::vec3(1.0f)); // a smaller cube
+			lightSourceShader.setMat4("model", model);
+
+			glBindVertexArray(lightCubeVAO);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			
+			
 			glfwPollEvents();
 			glfwSwapBuffers(window);
 		}
