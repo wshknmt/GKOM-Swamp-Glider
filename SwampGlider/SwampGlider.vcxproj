@@ -104,10 +104,15 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Rudder.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lighting.frag" />
+    <None Include="lighting.vert" />
+    <None Include="lightSource.frag" />
+    <None Include="lightSource.vert" />
     <None Include="swampGliderColor.frag" />
     <None Include="swampGliderColor.vert" />
     <None Include="swampGliderTexture.frag" />
