@@ -207,9 +207,13 @@ int main() {
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 				glider->move(glm::vec3(0.1f, 0.0f, 0.0f));
+				for (int i = 0; i < (int)WINGS_NUM; ++i)
+					propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
 			}
 			if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 				glider->move(glm::vec3(-0.1f, 0.0f, 0.0f));
+				for (int i = 0; i < (int)WINGS_NUM; ++i)
+					propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
 			}
 			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 				glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
@@ -243,8 +247,6 @@ int main() {
 		
 				steerPosition = 0.0f;
 			}
-			for (int i = 0; i < (int)WINGS_NUM; ++i) 
-				propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
 
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

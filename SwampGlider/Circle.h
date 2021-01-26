@@ -28,6 +28,10 @@ private:
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
 		}
 	}
 

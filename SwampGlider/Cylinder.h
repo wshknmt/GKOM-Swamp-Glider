@@ -28,6 +28,10 @@ private:
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
 		}
 
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
@@ -39,6 +43,10 @@ private:
 			for (int i = 0; i < 4; ++i)
 				vertices.push_back(color[i]);
 			// tekstura
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 		}

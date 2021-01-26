@@ -31,8 +31,11 @@ private:
 			// kolory
 			for (int i = 0; i < 4; ++i)
 				vertices.push_back(color[i]);
-
 			// tekstura
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 		}
@@ -45,6 +48,10 @@ private:
 		for (int i = 0; i < 4; ++i)
 			vertices.push_back(secondColor[i]);
 		// tekstura
+		vertices.push_back(0.0f);
+		vertices.push_back(0.0f);
+		// normalne
+		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 	}
