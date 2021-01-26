@@ -20,6 +20,7 @@
 #include "Cylinder.h"
 #include "Pipe.h"
 #include "Cone.h"
+#include "Circle.h"
 
 using namespace std;
 
@@ -42,21 +43,27 @@ void spawnLily(std::vector<Object*> &objects, glm::vec3 position) {
 	Cone* stalk = new Cone(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	stalk->move(glm::vec3(position[0], position[1], position[2]));
 	stalk->rotate(glm::vec3(180.0f, 0.0f, 0.0f));
-	stalk->scale(glm::vec3(0.2f, 1.0f, 0.2f));
+	stalk->scale(glm::vec3(0.2f, 0.6f, 0.2f));
 
 	objects.push_back(stalk);
 
-	Pipe* flower = new Pipe(glm::vec4((rand() % 256) / 256.0f, (rand() % 256) / 256.0f, (rand() % 256) / 256.0f, 1.0f), 0.45f);
+	Pipe* flower = new Pipe(glm::vec4((rand() % 256) / 255.0f, (rand() % 256) / 255.0f, (rand() % 256) / 255.0f, 1.0f), 0.45f);
 	flower->rotate(glm::vec3(0.0f, 0.0f, 90.0f));
 	flower->scale(glm::vec3(0.1f, 0.4f, 0.4f));
 	flower->setParent(stalk);
 
 	objects.push_back(flower);
+
+	Circle* leaf = new Circle(glm::vec4(0.0f, 83.0f / 255.0f, 44.0f / 255.0f, 1.0f));
+	leaf->scale(glm::vec3(0.5f, 1.0f, 0.5f));
+	leaf->setParent(stalk);
+	leaf->move(glm::vec3(0.0f, 0.55f, 0.0f));
+	objects.push_back(leaf);
 }
 
-void generateLilies(std::vector<Object*>& objects, int numberOfLilies, glm::vec3 maxPositionVec) {
+void generateLilies(std::vector<Object*>& objects, int numberOfLilies) {
 	for (int i = 0; i < numberOfLilies; ++i)
-		spawnLily(objects, glm::vec3{ rand() % (int)maxPositionVec[0] * 1.0f, maxPositionVec[2], rand() % (int)maxPositionVec[1] * 1.0f});
+		spawnLily(objects, glm::vec3{ rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2, 1.06f, rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2});
 }
 
 int main() {
@@ -86,20 +93,12 @@ int main() {
 		glEnable(GL_DEPTH_TEST);
 
 		// Setup camera object
-		glm::vec3 positionVector = glm::vec3(-10, 2, -10);
+		glm::vec3 positionVector = glm::vec3(-20, 5, -20);
 		GLfloat hAngle = 0.785f;
 		GLfloat vAngle = 0.0f;
-		GLfloat initialFoV = 45.0f;
 		GLfloat movementSpeed = 0.09f;
 		GLfloat mouseSpeed = 0.005f;
 		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
-
-		// Let's check what are maximum parameters counts
-		/*GLint nrAttributes;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
-		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
-		cout << "Max texture coords allowed: " << nrAttributes << std::endl;*/
 
 		// Build, compile and link shader programs
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
@@ -108,7 +107,7 @@ int main() {
 		// water
 		Water* water = new Water("water.jpg");
 		objects.push_back(water);
-		water->scale(glm::vec3(200.0f, 3.0f, 200.0f));
+		water->scale(glm::vec3(WATER_SIZE, 3.0f, WATER_SIZE));
 		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
 
 		// glider, duuh
@@ -200,10 +199,10 @@ int main() {
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
-		int numberOfLilies = rand() % 50;
+		int numberOfLilies = rand() % 50 + 25;
 
-		generateLilies(objects, numberOfLilies, glm::vec3(50.0f, 50.0f, 1.4f));
-
+		generateLilies(objects, numberOfLilies);
+		
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {

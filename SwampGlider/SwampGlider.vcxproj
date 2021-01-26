@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="consts.h" />
     <ClInclude Include="Cylinder.h" />
