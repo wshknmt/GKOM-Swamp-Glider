@@ -14,14 +14,14 @@ public:
 private:
 	void setVertices() override {
 		this->vertices = {
-			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  0.0f,	          //0
-			 0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	                  //1
-			 0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  WATER_TEX_REPS,	          //2
-			-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  WATER_TEX_REPS,  //3
-			-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  WATER_TEX_REPS,	          //4
-			 0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  WATER_TEX_REPS,  //5
-			 0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  0.0f,            //6
-			-0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  0.0f	                      //7
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  0.0f,	0.0f, 0.0f, 0.0f,	          //0
+			 0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	0.0f, 0.0f, 0.0f,	                  //1
+			 0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  WATER_TEX_REPS,	0.0f, 0.0f, 0.0f,	          //2
+			-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  WATER_TEX_REPS,	0.0f, 0.0f, 0.0f,  //3
+			-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  WATER_TEX_REPS,	0.0f, 0.0f, 0.0f,	          //4
+			 0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  WATER_TEX_REPS,	0.0f, 0.0f, 0.0f,  //5
+			 0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	WATER_TEX_REPS,  0.0f,	0.0f, 0.0f, 0.0f,            //6
+			-0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	0.0f, 0.0f, 0.0f                     //7
 		};
 	}
 

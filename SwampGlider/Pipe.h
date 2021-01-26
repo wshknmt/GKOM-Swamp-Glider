@@ -36,6 +36,10 @@ private:
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
 		}
 
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
@@ -49,6 +53,10 @@ private:
 			vertices.push_back(color[2]);
 			vertices.push_back(color[3]);
 			// tekstura
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 		}
@@ -66,6 +74,10 @@ private:
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
 		}
 
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
@@ -79,6 +91,10 @@ private:
 			vertices.push_back(color[2]);
 			vertices.push_back(color[3]);
 			// tekstura
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 		}

@@ -35,6 +35,10 @@ private:
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
+			// normalne
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
+			vertices.push_back(0.0f);
 		}
 
 		//czubek
@@ -51,6 +55,10 @@ private:
 		vertices.push_back(0.0f);
 		vertices.push_back(color[3]);
 		// tekstura
+		vertices.push_back(0.0f);
+		vertices.push_back(0.0f);
+		// normalne
+		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 
