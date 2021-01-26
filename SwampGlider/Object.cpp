@@ -106,7 +106,6 @@ void Object::draw(GLint shaderId) {
 
 void Object::move(const glm::vec3& vector) {
 	model = glm::translate(model, vector);
-
 }
 
 void Object::move2(const glm::vec3& vector) {
