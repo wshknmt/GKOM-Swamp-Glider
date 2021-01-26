@@ -16,5 +16,5 @@ const GLuint CIRCLE_VERTS = 128;
 
 const GLfloat WINGS_NUM = 10.0f;
 
-const glm::vec3 LIGHT_POS_VERT(0.0f, 30.0f, 0.0f);
+const glm::vec3 LIGHT_POS_VERT(30.0f, 25.0f, 30.0f);
 const glm::vec3 LIGHT_COLOR_VEC(1.0f, 1.0f, 1.0f);
