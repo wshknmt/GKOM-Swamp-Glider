@@ -21,6 +21,7 @@
 #include "Pipe.h"
 #include "Cone.h"
 #include "Circle.h"
+#include "Skybox.h"
 
 using namespace std;
 
@@ -203,6 +204,7 @@ int main() {
 
 		generateLilies(objects, numberOfLilies);
 		
+		Skybox skybox = Skybox();
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
@@ -272,6 +274,8 @@ int main() {
 				if (!(obj->isTextured()))
 					obj->draw(colorShaders.get_programID());
 			}
+		
+			skybox.draw(projection, view);
 
 			glfwPollEvents();
 			glfwSwapBuffers(window);

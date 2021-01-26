@@ -5,6 +5,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="SwampGliderMain.cpp" />
     <ClCompile Include="shprogram.cpp" />
+    <ClCompile Include="Skybox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -18,6 +19,7 @@
     <ClInclude Include="Rudder.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Water.h" />
+    <ClInclude Include="Skybox.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png" />
@@ -40,12 +42,16 @@
     <Image Include="Skybox\6.jpg">
       <Filter>Skybox</Filter>
     </Image>
+    <Image Include="pobrane.png" />
+    <Image Include="test1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="swampGliderColor.frag" />
     <None Include="swampGliderColor.vert" />
     <None Include="swampGliderTexture.frag" />
     <None Include="swampGliderTexture.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Skybox">
