@@ -5,7 +5,7 @@
 ![szkic_tyl](./Docs/Pictures/szkic_tyl.png)
 
 ## Zrzut ekranu z aktualnej wersji projektu
-![aktualny_stan3](./Docs/Pictures/aktualny_stan3.png)
+![aktualny_stan4](./Docs/Pictures/aktualny_stan4.png)
 
 ## Lista zadań
 * Model ślizgacza
@@ -38,4 +38,5 @@
 * Dodanie kierownicy 
 * Wprowadzenie ruchu ślizgacza, wiatraka, kierownicy oraz steru tylnego 
 * Dodanie losowego generowania lilii 
+* Dodanie skyboxa
 ### 4. Oświetlenie
