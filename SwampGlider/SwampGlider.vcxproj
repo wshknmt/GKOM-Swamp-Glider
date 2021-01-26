@@ -93,6 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png" />
+    <Image Include="Skybox\1.jpg" />
+    <Image Include="Skybox\2.jpg" />
+    <Image Include="Skybox\3.jpg" />
+    <Image Include="Skybox\4.jpg" />
+    <Image Include="Skybox\5.jpg" />
+    <Image Include="Skybox\6.jpg" />
     <Image Include="water.jpg" />
   </ItemGroup>
   <ItemGroup>

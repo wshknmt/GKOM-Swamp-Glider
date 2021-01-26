@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="SwampGliderMain.cpp" />
+    <ClCompile Include="shprogram.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Cone.h" />
+    <ClInclude Include="consts.h" />
+    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Glider.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Rudder.h" />
+    <ClInclude Include="shprogram.h" />
+    <ClInclude Include="Water.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="iipw.png" />
+    <Image Include="water.jpg" />
+    <Image Include="Skybox\1.jpg">
+      <Filter>Skybox</Filter>
+    </Image>
+    <Image Include="Skybox\2.jpg">
+      <Filter>Skybox</Filter>
+    </Image>
+    <Image Include="Skybox\3.jpg">
+      <Filter>Skybox</Filter>
+    </Image>
+    <Image Include="Skybox\4.jpg">
+      <Filter>Skybox</Filter>
+    </Image>
+    <Image Include="Skybox\5.jpg">
+      <Filter>Skybox</Filter>
+    </Image>
+    <Image Include="Skybox\6.jpg">
+      <Filter>Skybox</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="swampGliderColor.frag" />
+    <None Include="swampGliderColor.vert" />
+    <None Include="swampGliderTexture.frag" />
+    <None Include="swampGliderTexture.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Skybox">
+      <UniqueIdentifier>{b1d2f5e2-cbd0-4c35-8b3a-ce20cc55a32c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
