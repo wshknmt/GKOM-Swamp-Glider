@@ -22,3 +22,4 @@ const int BIRD_HIGHT_PARAM = 2000;
 const glm::vec3 LIGHT_POS_VERT(30.0f, 25.0f, 30.0f);
 const glm::vec3 LIGHT_COLOR_VEC(1.0f, 1.0f, 1.0f);
 
+const GLuint NUMBER_OF_LILIES = 80;
