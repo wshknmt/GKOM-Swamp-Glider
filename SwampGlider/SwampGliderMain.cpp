@@ -74,10 +74,7 @@ int main() {
 		return -1;
 	}
 	GLfloat turbo;
-	GLfloat birdPositionX = 0;
-	GLfloat birdPositionZ = 0;
-	GLfloat birdRotateCounter = 0;
-	bool up = 0;
+	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -199,43 +196,73 @@ int main() {
 		}
 
 		//bird
-		Water* birdBody = new Water(glm::vec4(221.0f/255.0f, 119.0f / 255.0f, 70.0f / 255.0f, 1.0f));
-		objects.push_back(birdBody);
-		birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
-		birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, 11.0f, 0.0f));
+		vector <GLint> birds;
+		vector <GLint> wings;
 
-		Pipe* head = new Pipe(glm::vec4(255.0f / 255.0f, 105.0f / 255.0f, 180.0f / 255.0f, 1.0f), 0.5);
-		objects.push_back(head);
-		head->rotate(glm::vec3(0.0f, 90.0f, 0.0f));
-		head->move(glm::vec3(0.0f, 0.85f, 1.2f));
-		head->scale(glm::vec3(0.15f, 0.4f, 0.4f));
-		head->setParent(birdBody);
+		vector <GLfloat> birdPositionX;
+		vector <GLfloat> birdPositionZ;
 
-		Cone* wing1 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
-		objects.push_back(wing1);
-		wing1->scale(glm::vec3(0.7f, 1.4f, 0.1f));
-		wing1->rotate(glm::vec3(45.0f, 0.0f, 0.0f));
-		wing1->setParent(birdBody);
+		vector <GLfloat> birdRotateCounter;
+		vector <GLfloat> birdSpeed;
 
-		Cone* wing2 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
-		objects.push_back(wing2);
-		wing2->scale(glm::vec3(0.7f, 1.4f, 0.1f));
-		wing2->rotate(glm::vec3(-45.0f, 0.0f, 0.0f));
-		wing2->setParent(birdBody);
+		//GLfloat birdRotateCounter = 0;
+		bool up = 0;
+		for (int i = 0; i < BIRD_QUANTITY; ++i) {
+			birds.push_back(objects.size());
+			birdPositionX.push_back(0.0f);
+			birdPositionZ.push_back(0.0f);
+			birdRotateCounter.push_back(0.0f);
+			int speed = rand() % 100 + 30;
+			birdSpeed.push_back((GLfloat)speed / 100.0f);
+			Water* birdBody = new Water(glm::vec4(221.0f/255.0f, 119.0f / 255.0f, 70.0f / 255.0f, 1.0f));
+			objects.push_back(birdBody);
+			birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
+			birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, 11.0f, rand() % (int)WATER_SIZE/2.0f));
 
-		Cone* tail = new Cone(glm::vec4(76.0f / 255.0f, 116.0f / 255.0f, 77.0f/255.0f, 1.0f));
-		objects.push_back(tail);
-		tail->scale(glm::vec3(0.03f, 0.8f, 0.1f));
-		tail->move(glm::vec3(-1.2f, 0.45f, 0.0f));
-		tail->rotate(glm::vec3(0.0f, 0.0f, 45.0f));
-		tail->setParent(birdBody);
+			Pipe* head = new Pipe(glm::vec4(255.0f / 255.0f, 105.0f / 255.0f, 180.0f / 255.0f, 1.0f), 0.5);
+			objects.push_back(head);
+			head->rotate(glm::vec3(0.0f, 90.0f, 0.0f));
+			head->move(glm::vec3(0.0f, 0.85f, 1.2f));
+			head->scale(glm::vec3(0.15f, 0.4f, 0.4f));
+			head->setParent(birdBody);
 
-		Cone* beak = new Cone(glm::vec4(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f));
-		objects.push_back(beak);
-		beak->scale(glm::vec3(0.1f, 0.7f, 0.1f));
-		beak->move(glm::vec3(0.0f, 0.0f, 0.4f));
-		beak->rotate(glm::vec3(90.0f, 0.0f, 0.0f));
-		beak->setParent(head);
+			wings.push_back(objects.size());
+			Cone* wing1 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
+			objects.push_back(wing1);
+			wing1->scale(glm::vec3(0.7f, 1.4f, 0.1f));
+			wing1->rotate(glm::vec3(45.0f, 0.0f, 0.0f));
+			wing1->setParent(birdBody);
+
+			wings.push_back(objects.size());
+			Cone* wing2 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
+			objects.push_back(wing2);
+			wing2->scale(glm::vec3(0.7f, 1.4f, 0.1f));
+			wing2->rotate(glm::vec3(-45.0f, 0.0f, 0.0f));
+			wing2->setParent(birdBody);
+			
+			Cone* tail = new Cone(glm::vec4(76.0f / 255.0f, 116.0f / 255.0f, 77.0f/255.0f, 1.0f));
+			objects.push_back(tail);
+			tail->scale(glm::vec3(0.03f, 0.8f, 0.1f));
+			tail->move(glm::vec3(-1.2f, 0.45f, 0.0f));
+			tail->rotate(glm::vec3(0.0f, 0.0f, 45.0f));
+			tail->setParent(birdBody);
+
+			Cone* beak = new Cone(glm::vec4(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f));
+			objects.push_back(beak);
+			beak->scale(glm::vec3(0.1f, 0.7f, 0.1f));
+			beak->move(glm::vec3(0.0f, 0.0f, 0.4f));
+			beak->rotate(glm::vec3(90.0f, 0.0f, 0.0f));
+			beak->setParent(head);
+		}
+
+		
+		
+
+		
+
+		
+
+		
 
 		//volcano
 		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -294,35 +321,54 @@ int main() {
 				turbo = 1.0f;
 			else
 				turbo = 0.0f;
-			birdBody->move(glm::vec3(BIRD_SPEED, 0.0f, 0.0f));
-			birdPositionX += BIRD_SPEED;
-			if (birdPositionX >= WATER_SIZE)
-			{
-				GLfloat randomizeZ = rand() % (int)WATER_SIZE;
-				birdPositionZ += randomizeZ;
-				birdBody->move(glm::vec3(WATER_SIZE * -1.0f, 0.0f, randomizeZ));
-				birdPositionX -= WATER_SIZE;
-				if (birdPositionZ >= WATER_SIZE)
-				{
-					birdBody->move(glm::vec3(0.0f, 0.0f, 0.0f - WATER_SIZE));
-					birdPositionZ -= WATER_SIZE;
+
+			for (int i = 0; i < birds.size(); ++i) {
+				objects[birds[i]]->move(glm::vec3(birdSpeed[i], 0.0f, 0.0f));
+				birdPositionX[i] += birdSpeed[i];
+				if (birdPositionX[i] >= WATER_SIZE) {
+					GLfloat randomizeZ = rand() % (int)WATER_SIZE;
+					birdPositionZ[i] += randomizeZ;
+					//birdBody->move(glm::vec3(WATER_SIZE * -1.0f, 0.0f, randomizeZ));
+					objects[birds[i]]->move(glm::vec3(WATER_SIZE * -1.0f, 0.0f, randomizeZ));
+					birdPositionX[i] -= WATER_SIZE;
+					if (birdPositionZ[i] >= WATER_SIZE) {
+					//	birdBody->move(glm::vec3(0.0f, 0.0f, 0.0f - WATER_SIZE));
+						objects[birds[i]]->move(glm::vec3(0.0f, 0.0f, 0.0f - WATER_SIZE));
+
+						birdPositionZ[i] -= WATER_SIZE;
+					}
+
 				}
-					
+
+
+
+
 			}
-			if (up) {
-				wing1->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
-				wing2->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
-				birdRotateCounter--;
-				if (birdRotateCounter == 0)
-					up = !up;
+			//birdBody->move(glm::vec3(BIRD_SPEED, 0.0f, 0.0f));
+			//objects[x]->move(glm::vec3(0.5f, 0.0f, 0.0f));
+			
+			for (int i = 0; i < wings.size(); i+=2) {
+				if (up) {
+					objects[wings[i]]->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+					objects[wings[i+1]]->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+					//wing1->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+				//	wing2->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+					birdRotateCounter[i/2]--;
+					if (birdRotateCounter[i/2] == 0.0f)
+						up = !up;
+				}
+				else {
+					objects[wings[i]]->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+					objects[wings[i + 1]]->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+					//wing1->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+					//wing2->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+					birdRotateCounter[i/2]++;
+					if (birdRotateCounter[i/2] == 90.0f)
+						up = !up;
+				}
+
 			}
-			else {
-				wing1->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
-				wing2->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
-				birdRotateCounter++;
-				if (birdRotateCounter == 90)
-					up = !up;
-			}
+			
 			
 			
 

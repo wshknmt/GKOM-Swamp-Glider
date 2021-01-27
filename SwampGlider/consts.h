@@ -17,4 +17,5 @@ const GLuint CIRCLE_VERTS = 128;
 
 const GLfloat WINGS_NUM = 6.0f;
 
-const GLfloat BIRD_SPEED = 0.5;
+//const GLfloat BIRD_SPEED = 0.5;
+const GLfloat BIRD_QUANTITY = 20;
