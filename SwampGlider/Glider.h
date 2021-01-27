@@ -20,7 +20,7 @@ private:
 		const GLfloat TS = 4096.0f;
 		this->vertices = {
 			// sciana boczna z tylu
-			-4.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	1200/TS,  2700/TS,	-1.0f, 0.0f, 0.0f,	//0		0
+			-4.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	1200 / TS,  2700 / TS,	-1.0f, 0.0f, 0.0f,	//0		0
 			-4.0f,  0.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,	-1.0f, 0.0f, 0.0f,	//1		1
 			-4.0f,  1.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  3000 / TS,	-1.0f, 0.0f, 0.0f,	//2		2
 			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	1200 / TS,  3000 / TS,	-1.0f, 0.0f, 0.0f,	//3		3
@@ -45,7 +45,7 @@ private:
 			3.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	3000 / TS,  600 / TS,	1.0f, 0.0f, -1.0f,	//7		18
 			4.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	3300 / TS,  600 / TS,	1.0f, 0.0f, -1.0f,	//11	19
 			// sciana boczna lewa
-			3.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	2700/TS,  600 / TS,	0.0f, 0.0f, -1.0f,	//4		20
+			3.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	2700 / TS,  600 / TS,	0.0f, 0.0f, -1.0f,	//4		20
 			-4.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	2700 / TS,  2700 / TS,	0.0f, 0.0f, -1.0f,	//0		21
 			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	3000 / TS,  2700 / TS,	0.0f, 0.0f, -1.0f,	//3		22
 			3.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	3000 / TS,  600 / TS,	0.0f, 0.0f, -1.0f,	//7		23
