@@ -264,6 +264,51 @@ int main() {
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
+		//mountains
+		Cone* mountain1 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f/255.0f, 1.0f));
+		objects.push_back(mountain1);
+		mountain1->scale(glm::vec3(10.0f, 20.0f, 10.0f));
+		mountain1->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		mountain1->move(glm::vec3(-80.0f, 0.0f, 0.0f));
+
+		Cone* mountain2 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
+		objects.push_back(mountain2);
+		mountain2->scale(glm::vec3(2.5f, 5.0f, 2.5f));
+		mountain2->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		mountain2->move(glm::vec3(0.0f, 15.01f, 0.0f));
+		mountain2->setParent(mountain1);
+
+		Cone* mountain3 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
+		objects.push_back(mountain3);
+		mountain3->scale(glm::vec3(5.0f, 10.0f, 5.0f));
+		mountain3->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		mountain3->move(glm::vec3(0.0f,0.0f, 10.0f));
+		mountain3->setParent(mountain1);
+
+		Cone* mountain4 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
+		objects.push_back(mountain4);
+		mountain4->scale(glm::vec3(5.0f, 15.0f, 5.0f));
+		mountain4->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		mountain4->move(glm::vec3(0.0f, 0.0f, -8.0f));
+		mountain4->setParent(mountain1);
+
+		Cone* mountain5 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
+		objects.push_back(mountain5);
+		mountain5->scale(glm::vec3(1.0f, 3.0f, 1.0f));
+		mountain5->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		mountain5->move(glm::vec3(0.0f, 12.26f, 0.0f));
+		mountain5->setParent(mountain4);
+
+		Cone* mountain6 = new Cone(glm::vec4(125.0f / 255.0f, 98.0f / 255.0f, 72.0f / 255.0f, 1.0f));
+		objects.push_back(mountain6);
+		mountain6->scale(glm::vec3(2.5f, 5.0f, 2.5f));
+		mountain6->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+		mountain6->move(glm::vec3(11.0f, 0.0f, 0.0f));
+		mountain6->setParent(mountain1);
+
+
+
+
 		int numberOfLilies = rand() % 50 + 25;
 		generateLilies(objects, numberOfLilies);
 		
