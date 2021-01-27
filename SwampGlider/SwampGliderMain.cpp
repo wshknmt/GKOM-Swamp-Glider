@@ -107,7 +107,7 @@ int main() {
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");		
 
 		// water
-		Water* water = new Water("bagno.png");
+		Cuboid* water = new Cuboid("bagno.png");
 		objects.push_back(water);
 		water->scale(glm::vec3(WATER_SIZE, 3.0f, WATER_SIZE));
 		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
@@ -202,7 +202,7 @@ int main() {
 		vector <GLfloat> birdRotateCounter;
 		vector <GLfloat> birdSpeed;
 
-		bool up = 0;
+		bool up = false;
 		for (int i = 0; i < BIRD_QUANTITY; ++i) {
 			birds.push_back(objects.size());
 			birdPositionX.push_back(0.0f);
@@ -211,13 +211,13 @@ int main() {
 			int speed = rand() % 100 + 30;
 			birdSpeed.push_back((GLfloat)speed / 100.0f);
 			int altitude = rand() % 800 + 600;
-			Water* birdBody = new Water(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-			//Water* birdBody = new Water(glm::vec4(221.0f/255.0f, 119.0f / 255.0f, 70.0f / 255.0f, 1.0f));
+			
+			Cuboid* birdBody = new Cuboid(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 			objects.push_back(birdBody);
 			birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
 			birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, (GLfloat)altitude / 100.0f, 0.0f - WATER_SIZE / 2.0f));
+			
 			Pipe* head = new Pipe(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f), 0.5);
-			//Pipe* head = new Pipe(glm::vec4(255.0f / 255.0f, 105.0f / 255.0f, 180.0f / 255.0f, 1.0f), 0.5);
 			objects.push_back(head);
 			head->rotate(glm::vec3(0.0f, 90.0f, 0.0f));
 			head->move(glm::vec3(0.0f, 0.85f, 1.2f));
@@ -226,7 +226,6 @@ int main() {
 
 			wings.push_back(objects.size());
 			Cone* wing1 = new Cone(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f));
-			//Cone* wing1 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
 			objects.push_back(wing1);
 			wing1->scale(glm::vec3(0.7f, 1.4f, 0.1f));
 			wing1->rotate(glm::vec3(45.0f, 0.0f, 0.0f));
@@ -234,14 +233,12 @@ int main() {
 
 			wings.push_back(objects.size());
 			Cone* wing2 = new Cone(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f));
-			//Cone* wing2 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
 			objects.push_back(wing2);
 			wing2->scale(glm::vec3(0.7f, 1.4f, 0.1f));
 			wing2->rotate(glm::vec3(-45.0f, 0.0f, 0.0f));
 			wing2->setParent(birdBody);
 			
 			Cone* tail = new Cone(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f));
-			//Cone* tail = new Cone(glm::vec4(76.0f / 255.0f, 116.0f / 255.0f, 77.0f / 255.0f, 1.0f));
 			objects.push_back(tail);
 			tail->scale(glm::vec3(0.03f, 0.8f, 0.1f));
 			tail->move(glm::vec3(-1.2f, 0.45f, 0.0f));
@@ -249,7 +246,6 @@ int main() {
 			tail->setParent(birdBody);
 
 			Cone* beak = new Cone(glm::vec4(230.0f / 255.0f, 198.0f / 255.0f, 25.0f / 255.0f, 1.0f));
-			//Cone* beak = new Cone(glm::vec4(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f));
 			objects.push_back(beak);
 			beak->scale(glm::vec3(0.1f, 0.7f, 0.1f));
 			beak->move(glm::vec3(0.0f, 0.0f, 0.4f));
@@ -306,9 +302,6 @@ int main() {
 		mountain6->move(glm::vec3(11.0f, 0.0f, 0.0f));
 		mountain6->setParent(mountain1);
 
-
-
-
 		int numberOfLilies = rand() % 50 + 25;
 		generateLilies(objects, numberOfLilies);
 		
@@ -330,7 +323,7 @@ int main() {
 					glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
 
 				for (int i = 0; i < 3; ++i)
-						steeringWheelInterior[i]->rotate(glm::vec3(5.0f, 0.0f, 0.0f));
+					steeringWheelInterior[i]->rotate(glm::vec3(5.0f, 0.0f, 0.0f));
 				if (rudder->rudderCounter <= 45.0f) {
 					rudder->rotate(glm::vec3(0.0f, -2.0f, 0.0f));
 					rudder->rudderCounter += 2.0f;
@@ -372,22 +365,20 @@ int main() {
 
 			for (int i = 0; i < wings.size(); i+=2) {
 				if (up) {
-					objects[wings[i]]->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
-					objects[wings[i+1]]->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
-					birdRotateCounter[i/2]--;
-					if (birdRotateCounter[i/2] == 0.0f)
+					objects[wings[i]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
+					objects[wings[i+1]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
+					birdRotateCounter[i/2] -= 2;
+					if (birdRotateCounter[i/2] <= 0.0f)
 						up = !up;
-				}
-				else {
-					objects[wings[i]]->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
-					objects[wings[i + 1]]->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
-					birdRotateCounter[i/2]++;
-					if (birdRotateCounter[i/2] == 90.0f)
+				} else {
+					objects[wings[i]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
+					objects[wings[i + 1]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
+					birdRotateCounter[i/2] += 2;
+					if (birdRotateCounter[i/2] >= 90.0f)
 						up = !up;
 				}
 
 			}
-			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			camera.refresh();

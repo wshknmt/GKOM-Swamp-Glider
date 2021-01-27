@@ -4,13 +4,13 @@
 #include "Object.h"
 #include "consts.h"
 
-class Water : public Object {
+class Cuboid : public Object {
 
 public:
-	Water(string textureFileName) : Object(textureFileName) {
+	Cuboid(string textureFileName) : Object(textureFileName) {
 		initialize();
 	}
-	Water(glm::vec4 color) : Object(color) {
+	Cuboid(glm::vec4 color) : Object(color) {
 		//this->textureRepetitions = 0.0f; // to i tak jest nieuzywane
 		initialize();
 	}
