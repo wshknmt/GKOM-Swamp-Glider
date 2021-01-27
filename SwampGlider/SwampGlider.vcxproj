@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bagno.png" />
+    <Image Include="glider.png" />
     <Image Include="iipw.png" />
     <Image Include="pobrane.png" />
     <Image Include="Skybox\1.jpg" />

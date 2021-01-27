@@ -117,7 +117,7 @@ int main() {
 		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
 
 		// glider, duuh
-		Glider* glider = new Glider(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		Glider* glider = new Glider("glider.png");
 		objects.push_back(glider);
 		glider->move(glm::vec3(-3.0f, 0.01f, 0.0f));
 		glider->scale(glm::vec3(1.0f, 2.0f, 1.0f));
