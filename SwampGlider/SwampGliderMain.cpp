@@ -290,7 +290,7 @@ int main() {
 			birdRotateCounter.push_back(0.0f);
 			int speed = rand() % 100 + 30;
 			birdSpeed.push_back((GLfloat)speed / 100.0f);
-			int altitude = rand() % 800 + 600;
+			int altitude = (rand() % 800) + BIRD_HIGHT_PARAM;
 			
 			Cuboid* birdBody = new Cuboid(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 			objects.push_back(birdBody);
