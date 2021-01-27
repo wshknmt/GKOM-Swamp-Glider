@@ -471,15 +471,31 @@ int main() {
 			}
 
 			// zmiana koloru swiatla
+			// czerwone
 			if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
 				lightColor = glm::vec3(1.0f, 0.0f, 0.0f);
 			}
+			// zielone
 			if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
 				lightColor = glm::vec3(0.0f, 1.0f, 0.0f);
 			}
+			// zolte
+			if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+				lightColor = glm::vec3(1.0f, 1.0f, 0.0f);
+			}
+			// niebieskie
 			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
 				lightColor = glm::vec3(0.0f, 0.0f, 1.0f);
 			}
+			// rozowe
+			if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+				lightColor = glm::vec3(1.0f, 0.0f, 1.0f);
+			}
+			// blekitne
+			if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+				lightColor = glm::vec3(0.0f, 1.0f, 1.0f);
+			}
+			// biale
 			if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
 				lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 			}

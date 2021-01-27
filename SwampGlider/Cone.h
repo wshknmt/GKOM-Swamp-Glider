@@ -22,7 +22,11 @@ private:
 	void setVertices() override {
 
 		const GLfloat R = 1.0f;
+		glm::vec3 centrePos;
+		glm::vec3 vertexPos;
+		glm::vec3 normal;
 
+		centrePos = glm::vec3(0.0f, 0.0f, 0.0f);
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// wspolrzedne x, y, z gornej podstawy
 			vertices.push_back(-R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
@@ -35,9 +39,11 @@ private:
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
 			// normalne
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
-			vertices.push_back(0.0f);
+			vertexPos = glm::vec3(-R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)), 0, -R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
+			normal = normalize(vertexPos - centrePos);
+			vertices.push_back(normal[0]);
+			vertices.push_back(normal[1]);
+			vertices.push_back(normal[2]);
 		}
 
 		//czubek
@@ -52,9 +58,10 @@ private:
 		vertices.push_back(0.0f);
 		// normalne
 		vertices.push_back(0.0f);
-		vertices.push_back(0.0f);
+		vertices.push_back(1.0f);
 		vertices.push_back(0.0f);
 
+		/*
 		// normalne
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
@@ -63,6 +70,7 @@ private:
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
+		*/
 
 		/*for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// wspolrzedne x, y, z gornej podstawy
