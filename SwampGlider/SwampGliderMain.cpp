@@ -8,29 +8,38 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
-#include <vector>
-
 #include "Camera.h"
-#include "Glider.h"
-#include "Cuboid.h"
-#include "Rudder.h"
-#include "Cylinder.h"
-#include "Pipe.h"
-#include "Cone.h"
-#include "Circle.h"
-#include "Skybox.h"
 
 using namespace std;
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-ostream& operator<<(ostream& os, const glm::mat4& mx) {
+GLuint LoadMipmapTexture(GLuint texId, const char* fname)
+{
+	int width, height;
+	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
+	if (image == nullptr)
+		throw exception("Failed to load texture file");
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+
+	glActiveTexture(texId);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return texture;
+}
+
+ostream& operator<<(ostream& os, const glm::mat4& mx)
+{
 	for (int row = 0; row < 4; ++row)
 	{
 		for (int col = 0; col < 4; ++col)
@@ -40,88 +49,25 @@ ostream& operator<<(ostream& os, const glm::mat4& mx) {
 	return os;
 }
 
-void spawnLily(std::vector<Object*> &objects, glm::vec3 position) {
-	Cone* stalk = new Cone(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	stalk->move(glm::vec3(position[0], position[1], position[2]));
-	stalk->rotate(glm::vec3(180.0f, 0.0f, 0.0f));
-	stalk->scale(glm::vec3(0.2f, 0.6f, 0.2f));
-
-	objects.push_back(stalk);
-
-	Pipe* flower = new Pipe(glm::vec4((rand() % 256) / 255.0f, (rand() % 256) / 255.0f, (rand() % 256) / 255.0f, 1.0f), 0.45f);
-	flower->rotate(glm::vec3(0.0f, 0.0f, 90.0f));
-	flower->scale(glm::vec3(0.1f, 0.4f, 0.4f));
-	flower->setParent(stalk);
-
-	objects.push_back(flower);
-
-	Circle* leaf = new Circle(glm::vec4(0.0f, 83.0f / 255.0f, 44.0f / 255.0f, 1.0f));
-	leaf->scale(glm::vec3(0.5f, 1.0f, 0.5f));
-	leaf->setParent(stalk);
-	leaf->move(glm::vec3(0.0f, 0.55f, 0.0f));
-	objects.push_back(leaf);
-}
-
-void generateLilies(std::vector<Object*>& objects) {
-	for (int i = 0; i < NUMBER_OF_LILIES; ++i)
-		spawnLily(objects, glm::vec3{ rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2 - 1.0f, 1.06f, rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2 - 1.0f});
-}
-
-void generateMountains(std::vector<Object*>& objects) {
-	Cone* mountain1 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
-	objects.push_back(mountain1);
-	mountain1->scale(glm::vec3(10.0f, 20.0f, 10.0f));
-	mountain1->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain1->move(glm::vec3(-80.0f, 0.0f, 0.0f));
-
-	Cone* mountain2 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
-	objects.push_back(mountain2);
-	mountain2->scale(glm::vec3(2.5f, 5.0f, 2.5f));
-	mountain2->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain2->move(glm::vec3(0.0f, 15.01f, 0.0f));
-	mountain2->setParent(mountain1);
-
-	Cone* mountain3 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
-	objects.push_back(mountain3);
-	mountain3->scale(glm::vec3(5.0f, 10.0f, 5.0f));
-	mountain3->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain3->move(glm::vec3(0.0f, 0.0f, 10.0f));
-	mountain3->setParent(mountain1);
-
-	Cone* mountain4 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
-	objects.push_back(mountain4);
-	mountain4->scale(glm::vec3(5.0f, 15.0f, 5.0f));
-	mountain4->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain4->move(glm::vec3(0.0f, 0.0f, -8.0f));
-	mountain4->setParent(mountain1);
-
-	Cone* mountain5 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
-	objects.push_back(mountain5);
-	mountain5->scale(glm::vec3(0.9f, 3.0f, 0.9f));
-	mountain5->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain5->move(glm::vec3(0.0f, 12.26f, 0.0f));
-	mountain5->setParent(mountain4);
-
-	Cone* mountain6 = new Cone(glm::vec4(125.0f / 255.0f, 98.0f / 255.0f, 72.0f / 255.0f, 1.0f));
-	objects.push_back(mountain6);
-	mountain6->scale(glm::vec3(2.5f, 5.0f, 2.5f));
-	mountain6->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain6->move(glm::vec3(11.0f, 0.0f, 0.0f));
-	mountain6->setParent(mountain1);
-}
-
-int main() {
-	srand(time(NULL));
-	if (glfwInit() != GL_TRUE) {
+int main()
+{
+	{
+		glm::mat4 trans;
+		cout << trans << endl;
+		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+		cout << trans << endl;
+	}
+	if (glfwInit() != GL_TRUE)
+	{
 		cout << "GLFW initialization failed" << endl;
 		return -1;
 	}
-	GLfloat turbo;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	std::vector<Object*> objects;
-	try	{
+	try
+	{
 		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Swamp Glider", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
@@ -137,284 +83,173 @@ int main() {
 
 		glEnable(GL_DEPTH_TEST);
 
-		// Setup camera object
-		glm::vec3 positionVector = glm::vec3(-20, 5, -20);
-		GLfloat hAngle = 1.0f;
+		// camera setup
+		glm::vec3 positionVector = glm::vec3(-10, 2, -10);
+		GLfloat hAngle = 0.785f;
 		GLfloat vAngle = 0.0f;
-		GLfloat movementSpeed = 0.09f;
+		GLfloat initialFoV = 45.0f;
+		GLfloat movementSpeed = 0.05f;
 		GLfloat mouseSpeed = 0.005f;
 		Camera camera = Camera(window, positionVector, hAngle, vAngle, movementSpeed, mouseSpeed);
 
-		// Build, compile and link shader programs
-		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
-		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");		
+		// Let's check what are maximum parameters counts
+		GLint nrAttributes;
+		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
+		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
+		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
-		// water
-		Cuboid* water = new Cuboid("bagno.png");
-		objects.push_back(water);
-		water->scale(glm::vec3(WATER_SIZE, 3.0f, WATER_SIZE));
-		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
+		// Build, compile and link shader program
+		ShaderProgram theProgram("SwampGlider.vert", "SwampGlider.frag");
 
-		// glider, duuh
-		Glider* glider = new Glider("glider.png");
-		objects.push_back(glider);
-		glider->move(glm::vec3(-3.0f, 0.01f, 0.0f));
-		glider->scale(glm::vec3(1.0f, 2.0f, 1.0f));
+		// Set up vertex data 
+		GLfloat vertices[] = {
+			// coordinates			// color			// texture
+			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
+			-1.0f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//1
+			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//2
+			1.0f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//3
 
-		//rudder
-		Rudder* rudder = new Rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-		objects.push_back(rudder);
-		rudder->move(glm::vec3(-3.9f, -0.05f, 0.0f));
-		rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
-		rudder->scale(glm::vec3(1.3f, 2.0f, 1.0f));
-		rudder->setParent(glider);
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
+			-1.0f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
+			0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
+			1.0f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
 
-		//bottom of propeller
-		Cylinder* bottomOfPropellerCylinder = new Cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-		objects.push_back(bottomOfPropellerCylinder);
-		bottomOfPropellerCylinder->move(glm::vec3(-3.76f, 2.3f, 0.0f));
-		bottomOfPropellerCylinder->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		bottomOfPropellerCylinder->scale(glm::vec3(0.2f, 0.5f, 0.2f));
-		bottomOfPropellerCylinder->setParent(glider);
+			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
+			1.0f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
+			1.0f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
 
-		//propeller guard
-		Pipe* propellerGuard = new Pipe(glm::vec4(1.0f, 215.0f / 255.0f, 0.0f, 1.0f), 0.9f);
-		objects.push_back(propellerGuard);
-		propellerGuard->move(glm::vec3(-3.75f, 4.2f, 0.0f));
-		propellerGuard->scale(glm::vec3(0.27f, 1.5f, 1.5f));
-		propellerGuard->setParent(glider);
+			-1.0f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
+			-1.0f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
+			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
+			0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
 
-		//propeller long stick
-		Cylinder* propellerLongStick = new Cylinder(glm::vec4(0.0f, 0.5f, 0.5f, 1.0f));
-		objects.push_back(propellerLongStick);
-		propellerLongStick->move(glm::vec3(0.0f, 0.0f, 0.0f));
-		propellerLongStick->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		propellerLongStick->scale(glm::vec3(0.07f, 1.45f, 0.07f));
-		propellerLongStick->setParent(propellerGuard);
+			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
+			-1.0f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
+			-1.0f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
 
-		//thick steering wheel stand
-		Cylinder* thickSteeringWheelStand = new Cylinder(glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
-		objects.push_back(thickSteeringWheelStand);
-		thickSteeringWheelStand->move(glm::vec3(0.35f, 2.0f, 0.0f));
-		thickSteeringWheelStand->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		thickSteeringWheelStand->scale(glm::vec3(0.2, 0.25f, 0.2f));
-		thickSteeringWheelStand->setParent(glider);
+			1.0f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
+			1.0f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
+			0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
+			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
+		};
 
-		//thin steering wheel stand
-		Cylinder* thinSteeringWheelStand = new Cylinder(glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
-		objects.push_back(thinSteeringWheelStand);
-		thinSteeringWheelStand->move(glm::vec3(0.0f, 0.5f, 0.0f));
-		thinSteeringWheelStand->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		thinSteeringWheelStand->scale(glm::vec3(0.04, 0.25f, 0.04f));
-		thinSteeringWheelStand->setParent(thickSteeringWheelStand);
+		GLuint indices[] = {
+			0, 1, 2,
+			0, 2, 3,
+			4, 5, 6,
+			4, 6, 7,
+			8, 9, 10,
+			8, 10, 11,
+			12, 13, 14,
+			12, 14, 15,
+			16, 17, 18,
+			18, 17, 19,
+			20, 21, 22,
+			20, 22, 23
+		};
 
-		//steering wheel
-		Pipe* steeringWheel = new Pipe(glm::vec4(1.0f, 115.0f / 255.0f, 0.2f, 1.0f), 0.7f);
-		objects.push_back(steeringWheel);
-		steeringWheel->move(glm::vec3(0.0f, 0.6f, 0.0f));
-		steeringWheel->scale(glm::vec3(0.045f, 0.4f, 0.4f));
-		steeringWheel->setParent(thinSteeringWheelStand);
+		GLuint VBO, EBO, VAO;
+		glGenVertexArrays(1, &VAO);
+		glGenBuffers(1, &VBO);
+		glGenBuffers(1, &EBO);
 
-		vector<Cone*> propeller;
-		for (int i = 0; i < (int)WINGS_NUM; ++i) {
-			Cone* cone = new Cone(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-			cone->move(glm::vec3(-0.15f, 0.0f, 0.0f));
-			cone->rotate(glm::vec3(i * (360.0f / WINGS_NUM), 0.0f, 0.0f));
-			cone->scale(glm::vec3(0.05f, 1.3f, 0.2f));
-			cone->setParent(propellerGuard);
-			propeller.push_back(cone);
-			objects.push_back(cone);
-		}
-		GLfloat steerPosition = 0.0f;
-		vector<Cone*> steeringWheelInterior;
-		for (int i = 0; i < 3; ++i) {
-			Cone* cone = new Cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
-			cone->move(glm::vec3(0.0f, 0.0f, 0.0f));
-			cone->rotate(glm::vec3(i * (360.0f / 3), 0.0f, 0.0f));
-			cone->scale(glm::vec3(0.05f, 0.4f, 0.07f));
-			cone->setParent(steeringWheel);
-			steeringWheelInterior.push_back(cone);
-			objects.push_back(cone);
-		}
+		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
+		glBindVertexArray(VAO);
 
-		//bird
-		vector <GLint> birds;
-		vector <GLint> wings;
-		vector <GLfloat> birdPositionX;
-		vector <GLfloat> birdPositionZ;
-		vector <GLfloat> birdRotateCounter;
-		vector <GLfloat> birdSpeed;
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		bool up = false;
-		for (int i = 0; i < BIRD_QUANTITY; ++i) {
-			birds.push_back(objects.size());
-			birdPositionX.push_back(0.0f);
-			birdPositionZ.push_back(0.0f);
-			birdRotateCounter.push_back(0.0f);
-			int speed = rand() % 100 + 30;
-			birdSpeed.push_back((GLfloat)speed / 100.0f);
-			int altitude = rand() % 800 + 600;
-			
-			Cuboid* birdBody = new Cuboid(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-			objects.push_back(birdBody);
-			birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
-			birdBody->move(glm::vec3(0.0f - WATER_SIZE / 2.0f, (GLfloat)altitude / 100.0f, 0.0f - WATER_SIZE / 2.0f));
-			
-			Pipe* head = new Pipe(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f), 0.5);
-			objects.push_back(head);
-			head->rotate(glm::vec3(0.0f, 90.0f, 0.0f));
-			head->move(glm::vec3(0.0f, 0.85f, 1.2f));
-			head->scale(glm::vec3(0.15f, 0.4f, 0.4f));
-			head->setParent(birdBody);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-			wings.push_back(objects.size());
-			Cone* wing1 = new Cone(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f));
-			objects.push_back(wing1);
-			wing1->scale(glm::vec3(0.7f, 1.4f, 0.1f));
-			wing1->rotate(glm::vec3(45.0f, 0.0f, 0.0f));
-			wing1->setParent(birdBody);
+		// vertex geometry data
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
 
-			wings.push_back(objects.size());
-			Cone* wing2 = new Cone(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f));
-			objects.push_back(wing2);
-			wing2->scale(glm::vec3(0.7f, 1.4f, 0.1f));
-			wing2->rotate(glm::vec3(-45.0f, 0.0f, 0.0f));
-			wing2->setParent(birdBody);
-			
-			Cone* tail = new Cone(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f));
-			objects.push_back(tail);
-			tail->scale(glm::vec3(0.03f, 0.8f, 0.1f));
-			tail->move(glm::vec3(-1.2f, 0.45f, 0.0f));
-			tail->rotate(glm::vec3(0.0f, 0.0f, 45.0f));
-			tail->setParent(birdBody);
+		// vertex color data
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
 
-			Cone* beak = new Cone(glm::vec4(230.0f / 255.0f, 198.0f / 255.0f, 25.0f / 255.0f, 1.0f));
-			objects.push_back(beak);
-			beak->scale(glm::vec3(0.1f, 0.7f, 0.1f));
-			beak->move(glm::vec3(0.0f, 0.0f, 0.4f));
-			beak->rotate(glm::vec3(90.0f, 0.0f, 0.0f));
-			beak->setParent(head);
-		}
+		// vertex texture coordinates
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
 
-		//volcano
-		Cone* volcano = new Cone(glm::vec4(120.0f / 255.0f, 60.0f / 255.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		objects.push_back(volcano);
-		volcano->scale(glm::vec3(10.0f, 20.0f, 10.0f));
-		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
+		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
-		generateLilies(objects);
-		generateMountains(objects);
-		
-		Skybox skybox = Skybox();
+		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
+
+							  // Set the texture wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// Set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		// prepare textures
+		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "weiti.png");
+		//GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "iipw.png");
+
+		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "../Docs/Pictures/szkic_przod.png");
+		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "../Docs/Pictures/szkic_przod.png");
+
 		// main event loop
-		while (!glfwWindowShouldClose(window)) {
-			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-				glider->move(glm::vec3(0.1f + turbo, 0.0f, 0.0f));
-				for (int i = 0; i < (int)WINGS_NUM; ++i)
-					propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
-			}
-			if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-				glider->move(glm::vec3(-0.1f - turbo, 0.0f, 0.0f));
-				for (int i = 0; i < (int)WINGS_NUM; ++i)
-					propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
-			}
-			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-				if((glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS))
-					glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
+		while (!glfwWindowShouldClose(window))
+		{
+			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+			glfwPollEvents();
 
-				for (int i = 0; i < 3; ++i)
-					steeringWheelInterior[i]->rotate(glm::vec3(5.0f, 0.0f, 0.0f));
-				if (rudder->rudderCounter <= 45.0f) {
-					rudder->rotate(glm::vec3(0.0f, -2.0f, 0.0f));
-					rudder->rudderCounter += 2.0f;
-				}
-			} 
-			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS ) {
-				if ((glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS))
-					glider->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
-				for (int i = 0; i < 3; ++i)
-					steeringWheelInterior[i]->rotate(glm::vec3(-5.0f, 0.0f, 0.0f));
-				if (rudder->rudderCounter >= -45.0f) {
-					rudder->rotate(glm::vec3(0.0f, 2.0f, 0.0f));
-					rudder->rudderCounter -= 2.0f;
-				}
-			}
-			if (glfwGetKey(window, GLFW_KEY_LEFT) != GLFW_PRESS && glfwGetKey(window, GLFW_KEY_RIGHT) != GLFW_PRESS) {
-				rudder->rotate(glm::vec3(0.0f, rudder->rudderCounter, 0.0f));
-				rudder->rudderCounter = 0.0f;
-			}
-			if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-				turbo = 1.0f;
-			else
-				turbo = 0.0f;
-
-			for (int i = 0; i < birds.size(); ++i) {
-				objects[birds[i]]->move(glm::vec3(birdSpeed[i], 0.0f, 0.0f));
-				birdPositionX[i] += birdSpeed[i];
-				if (birdPositionX[i] >= WATER_SIZE) {
-					GLfloat randomizeZ = rand() % (int)WATER_SIZE;
-					birdPositionZ[i] += randomizeZ;
-					objects[birds[i]]->move(glm::vec3(WATER_SIZE * -1.0f, 0.0f, randomizeZ));
-					birdPositionX[i] -= WATER_SIZE;
-					if (birdPositionZ[i] >= WATER_SIZE) {
-						objects[birds[i]]->move(glm::vec3(0.0f, 0.0f, 0.0f - WATER_SIZE));
-						birdPositionZ[i] -= WATER_SIZE;
-					}
-				}
-			}
-
-			for (int i = 0; i < wings.size(); i+=2) {
-				if (up) {
-					objects[wings[i]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
-					objects[wings[i+1]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
-					birdRotateCounter[i/2] -= 2;
-					if (birdRotateCounter[i/2] <= 0.0f)
-						up = !up;
-				} else {
-					objects[wings[i]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
-					objects[wings[i + 1]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
-					birdRotateCounter[i/2] += 2;
-					if (birdRotateCounter[i/2] >= 90.0f)
-						up = !up;
-				}
-
-			}
+			// Clear the colorbuffer
+			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			// Bind Textures using texture units
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture0);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_2D, texture1);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
+
+			glm::mat4 trans;
+			static GLfloat rot_angle = 0.0f;
+			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(1.0, 0.0, 0.0));
+			rot_angle += 0.01f;
+			if (rot_angle >= 360.0f)
+				rot_angle -= 360.0f;
+			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
+			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+			
 			camera.refresh();
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = PROJECTION_MATRIX;
 
-			textureShaders.Use();
-			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
-			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
-			
-			for (Object* obj : objects) {
-				if (obj->isTextured())
-					obj->draw(textureShaders.get_programID());
-			}
-			
-			colorShaders.Use();
-			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
-			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
-			
-			for (Object* obj : objects) {
-				if (!(obj->isTextured()))
-					obj->draw(colorShaders.get_programID());
-			}
-		
-			skybox.draw(projection, view);
+			GLuint viewLoc = glGetUniformLocation(theProgram.get_programID(), "view");
+			GLuint projLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-			glfwPollEvents();
+			// Draw our first triangle
+			theProgram.Use();
+
+			glBindVertexArray(VAO);
+			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
+
+			// Swap the screen buffers
 			glfwSwapBuffers(window);
 		}
-	} catch (exception ex) {
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(1, &VBO);
+		glDeleteBuffers(1, &EBO);
+	}
+	catch (exception ex)
+	{
 		cout << ex.what() << endl;
 	}
 	glfwTerminate();
 
-	for (Object* obj : objects)
-		delete obj;
 	return 0;
 }

@@ -87,44 +87,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SwampGliderMain.cpp" />
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bagno.png" />
-    <Image Include="glider.png" />
-    <Image Include="s1.png" />
-    <Image Include="s2.png" />
-    <Image Include="s3.png" />
-    <Image Include="s4.png" />
-    <Image Include="s5.png" />
-    <Image Include="s6.png" />
-    <Image Include="test1.png" />
-    <Image Include="water.jpg" />
+    <None Include="SwampGlider.frag" />
+    <None Include="SwampGlider.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="iipw.png" />
+    <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="Cone.h" />
     <ClInclude Include="consts.h" />
-    <ClInclude Include="Cylinder.h" />
-    <ClInclude Include="Glider.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Pipe.h" />
-    <ClInclude Include="Rudder.h" />
     <ClInclude Include="shprogram.h" />
-    <ClInclude Include="Skybox.h" />
-    <ClInclude Include="Cuboid.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="skybox.frag" />
-    <None Include="skybox.vert" />
-    <None Include="swampGliderColor.frag" />
-    <None Include="swampGliderColor.vert" />
-    <None Include="swampGliderTexture.frag" />
-    <None Include="swampGliderTexture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
