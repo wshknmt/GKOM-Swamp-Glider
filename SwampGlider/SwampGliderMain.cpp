@@ -484,11 +484,6 @@ int main() {
 				lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 			}
 
-
-			for (int i = 0; i < (int)WINGS_NUM; i++) {
-				propeller[i]->rotate(glm::vec3(0.5f, 0.0f, 0.0f));
-			}
-
 			for (int i = 0; i < wings.size(); i+=2) {
 				if (up) {
 					objects[wings[i]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
