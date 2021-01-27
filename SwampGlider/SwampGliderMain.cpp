@@ -233,7 +233,8 @@ int main() {
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
 		glm::vec3 lightPos = LIGHT_POS_VERT;
-
+		glm::vec3 lightColor = LIGHT_COLOR_VEC;
+	
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
@@ -271,6 +272,20 @@ int main() {
 				lightPos += glm::vec3(0.0f, -0.1f, 0.0f);
 			}
 
+			// zmiana koloru swiatla
+			if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+				lightColor = glm::vec3(1.0f, 0.0f, 0.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+				lightColor = glm::vec3(0.0f, 1.0f, 0.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+				lightColor = glm::vec3(0.0f, 0.0f, 1.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
+				lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+			}
+
 
 			for (int i = 0; i < (int)WINGS_NUM; i++) {
 				propeller[i]->rotate(glm::vec3(0.5f, 0.0f, 0.0f));
@@ -293,7 +308,7 @@ int main() {
 			}
 			
 			colorShaders.Use();
-			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightColor"), 1, &LIGHT_COLOR_VEC[0]);
+			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightColor"), 1, &lightColor[0]);
 			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightPos"), 1, &lightPos[0]);
 			//colorShaders.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 			//colorShaders.setVec3("lightPos", LIGHT_POS_VERT);

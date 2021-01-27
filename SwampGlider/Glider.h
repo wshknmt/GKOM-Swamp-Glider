@@ -21,8 +21,8 @@ private:
 		this->vertices = {
 			// sciana boczna z tylu
 			-4.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	1200 / TS,  2700 / TS,	-1.0f, 0.0f, 0.0f,	//0		0
-			-4.0f,  0.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,	-1.0f, 0.0f, 0.0f,	//1		1
-			-4.0f,  1.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  3000 / TS,	-1.0f, 0.0f, 0.0f,	//2		2
+			-4.0f,  0.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,		-1.0f, 0.0f, 0.0f,	//1		1
+			-4.0f,  1.0f,  2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  3000 / TS,		-1.0f, 0.0f, 0.0f,	//2		2
 			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	1200 / TS,  3000 / TS,	-1.0f, 0.0f, 0.0f,	//3		3
 			// sciana boczna z prawej
 			-4.0f,  0.0f,  2.0f,	color[0], color[1],  color[2], color[3],	1500 / TS,  2700 / TS,	0.0f, 0.0f, 1.0f,	//1		4
@@ -35,8 +35,8 @@ private:
 			4.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	3300 / TS,  900 / TS,	1.0f, 0.0f, 1.0f,	//10	10
 			3.0f,  1.0f,  2.0f,		color[0], color[1],  color[2], color[3],	3600 / TS,  900 / TS,	1.0f, 0.0f, 1.0f,	//6		11
 			// sciana boczna przednia
-			4.0f,  0.0f,  1.0f,		color[0], color[1],  color[2], color[3],	2400 / TS,  0.0f,	1.0f, 0.0f, 0.0f,	//9		12
-			4.0f,  0.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	1800 / TS,  0.0f,	1.0f, 0.0f, 0.0f,	//8		13
+			4.0f,  0.0f,  1.0f,		color[0], color[1],  color[2], color[3],	2400 / TS,  0.0f,		1.0f, 0.0f, 0.0f,	//9		12
+			4.0f,  0.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	1800 / TS,  0.0f,		1.0f, 0.0f, 0.0f,	//8		13
 			4.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	1800 / TS,  300 / TS,	1.0f, 0.0f, 0.0f,	//11	14
 			4.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	2400 / TS,  300 / TS,	1.0f, 0.0f, 0.0f,	//10	15
 			// sciana boczna przednia lewa
@@ -57,24 +57,24 @@ private:
 			4.0f,  0.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	1800 / TS,  300 / TS,	0.0f, -1.0f, 0.0f,	//8		28
 			3.0f,  0.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	1500 / TS,  600 / TS,	0.0f, -1.0f, 0.0f,	//4		29
 			// sciana gorna z lewej
-			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,	0.0f, 1.0f, 0.0f,	//3		30
+			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,		0.0f, 1.0f, 0.0f,	//3		30
 			-3.5f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	300 / TS,  2550 / TS,	0.0f, 1.0f, 0.0f,	//15	31
 			0.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	300 / TS,  1500 / TS,	0.0f, 1.0f, 0.0f,	//19	32
-			3.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  600 / TS,	0.0f, 1.0f, 0.0f,	//7		33
+			3.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  600 / TS,		0.0f, 1.0f, 0.0f,	//7		33
 			// sciana gorna z przodu
 			0.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	300 / TS,  1500 / TS,	0.0f, 1.0f, 0.0f,	//19	34
 			0.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	900 / TS,  1500 / TS,	0.0f, 1.0f, 0.0f,	//18	35
 			3.0f,  1.0f,  2.0f,		color[0], color[1],  color[2], color[3],	1200 / TS,  600 / TS,	0.0f, 1.0f, 0.0f,	//6		36
 			4.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	900 / TS,  300 / TS,	0.0f, 1.0f, 0.0f,	//10	37
 			4.0f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	300 / TS,  300 / TS,	0.0f, 1.0f, 0.0f,	//11	38
-			3.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  600 / TS,	0.0f, 1.0f, 0.0f,	//7		39
+			3.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  600 / TS,		0.0f, 1.0f, 0.0f,	//7		39
 			// sciana gorna z prawej
 			-4.0f,  1.0f,  2.0f,	color[0], color[1],  color[2], color[3],	1200 / TS,  2700 / TS,	0.0f, 1.0f, 0.0f,	//2		40
 			3.0f,  1.0f,  2.0f,		color[0], color[1],  color[2], color[3],	1200 / TS,  600 / TS,	0.0f, 1.0f, 0.0f,	//6		41
 			0.0f,  1.0f,  1.0f,		color[0], color[1],  color[2], color[3],	900 / TS,  1500 / TS,	0.0f, 1.0f, 0.0f,	//18	42
 			-3.5f,  1.0f,  1.0f,	color[0], color[1],  color[2], color[3],	900 / TS,  2550 / TS,	0.0f, 1.0f, 0.0f,	//14	43
 			// sciana gorna z tylu
-			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,	0.0f, 1.0f, 0.0f,	//3		44
+			-4.0f,  1.0f,  -2.0f,	color[0], color[1],  color[2], color[3],	0 / TS,  2700 / TS,		0.0f, 1.0f, 0.0f,	//3		44
 			-4.0f,  1.0f,  2.0f,	color[0], color[1],  color[2], color[3],	1200 / TS,  2700 / TS,	0.0f, 1.0f, 0.0f,	//2		45
 			-3.5f,  1.0f,  1.0f,	color[0], color[1],  color[2], color[3],	900 / TS,  2550 / TS,	0.0f, 1.0f, 0.0f,	//14	46
 			-3.5f,  1.0f,  -1.0f,	color[0], color[1],  color[2], color[3],	300 / TS,  2550 / TS,	0.0f, 1.0f, 0.0f,	//15	47

@@ -19,5 +19,5 @@ void main()
     ourColor = color;
 
     fragPos = vec3(model * vec4(position, 1.0f));
-    ourNormal = normal; 
+    ourNormal = mat3(transpose(inverse(model))) * normal;  
 }
