@@ -15,7 +15,7 @@
 
 #include "Camera.h"
 #include "Glider.h"
-#include "Water.h"
+#include "Cuboid.h"
 #include "Rudder.h"
 #include "Cylinder.h"
 #include "Pipe.h"
@@ -62,9 +62,9 @@ void spawnLily(std::vector<Object*> &objects, glm::vec3 position) {
 	objects.push_back(leaf);
 }
 
-void generateLilies(std::vector<Object*>& objects, int numberOfLilies) {
-	for (int i = 0; i < numberOfLilies; ++i)
-		spawnLily(objects, glm::vec3{ rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2, 1.06f, rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2});
+void generateLilies(std::vector<Object*>& objects) {
+	for (int i = 0; i < NUMBER_OF_LILIES; ++i)
+		spawnLily(objects, glm::vec3{ rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2 - 1.0f, 1.06f, rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2 - 1.0f});
 }
 
 int main() {
@@ -302,8 +302,7 @@ int main() {
 		mountain6->move(glm::vec3(11.0f, 0.0f, 0.0f));
 		mountain6->setParent(mountain1);
 
-		int numberOfLilies = rand() % 50 + 25;
-		generateLilies(objects, numberOfLilies);
+		generateLilies(objects);
 		
 		Skybox skybox = Skybox();
 		// main event loop

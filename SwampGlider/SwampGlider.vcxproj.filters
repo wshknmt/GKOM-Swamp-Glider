@@ -18,31 +18,11 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Rudder.h" />
     <ClInclude Include="shprogram.h" />
-    <ClInclude Include="Water.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Cuboid.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="iipw.png" />
     <Image Include="water.jpg" />
-    <Image Include="Skybox\1.jpg">
-      <Filter>Skybox</Filter>
-    </Image>
-    <Image Include="Skybox\2.jpg">
-      <Filter>Skybox</Filter>
-    </Image>
-    <Image Include="Skybox\3.jpg">
-      <Filter>Skybox</Filter>
-    </Image>
-    <Image Include="Skybox\4.jpg">
-      <Filter>Skybox</Filter>
-    </Image>
-    <Image Include="Skybox\5.jpg">
-      <Filter>Skybox</Filter>
-    </Image>
-    <Image Include="Skybox\6.jpg">
-      <Filter>Skybox</Filter>
-    </Image>
-    <Image Include="pobrane.png" />
     <Image Include="test1.png" />
     <Image Include="bagno.png" />
     <Image Include="glider.png" />
@@ -60,10 +40,5 @@
     <None Include="swampGliderTexture.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Skybox">
-      <UniqueIdentifier>{b1d2f5e2-cbd0-4c35-8b3a-ce20cc55a32c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>

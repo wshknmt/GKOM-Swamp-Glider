@@ -18,3 +18,5 @@ const GLuint CIRCLE_VERTS = 128;
 const GLfloat WINGS_NUM = 6.0f;
 
 const GLfloat BIRD_QUANTITY = 200;
+
+const GLuint NUMBER_OF_LILIES = 80;

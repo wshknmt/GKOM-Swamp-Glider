@@ -95,20 +95,12 @@
   <ItemGroup>
     <Image Include="bagno.png" />
     <Image Include="glider.png" />
-    <Image Include="iipw.png" />
-    <Image Include="pobrane.png" />
     <Image Include="s1.png" />
     <Image Include="s2.png" />
     <Image Include="s3.png" />
     <Image Include="s4.png" />
     <Image Include="s5.png" />
     <Image Include="s6.png" />
-    <Image Include="Skybox\1.jpg" />
-    <Image Include="Skybox\2.jpg" />
-    <Image Include="Skybox\3.jpg" />
-    <Image Include="Skybox\4.jpg" />
-    <Image Include="Skybox\5.jpg" />
-    <Image Include="Skybox\6.jpg" />
     <Image Include="test1.png" />
     <Image Include="water.jpg" />
   </ItemGroup>
@@ -124,7 +116,7 @@
     <ClInclude Include="Rudder.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Skybox.h" />
-    <ClInclude Include="Water.h" />
+    <ClInclude Include="Cuboid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="skybox.frag" />
