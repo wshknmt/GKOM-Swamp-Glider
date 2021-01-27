@@ -232,6 +232,8 @@ int main() {
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
+		glm::vec3 lightPos = LIGHT_POS_VERT;
+
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
@@ -249,24 +251,24 @@ int main() {
 
 			// poruszanie szescianem przod tyl
 			if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
-				cubePos += glm::vec3(0.1f, 0.0f, 0.0f);
+				lightPos += glm::vec3(0.1f, 0.0f, 0.0f);
 			}
 			if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
-				cubePos += glm::vec3(-0.1f, 0.0f, 0.0f);
+				lightPos += glm::vec3(-0.1f, 0.0f, 0.0f);
 			}
 			// poruszanie szescianem lewo prawo
 			if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
-				cubePos += glm::vec3(0.0f, 0.0f, 0.1f);
+				lightPos += glm::vec3(0.0f, 0.0f, 0.1f);
 			}
 			if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
-				cubePos += glm::vec3(0.0f, 0.0f, -0.1f);
+				lightPos += glm::vec3(0.0f, 0.0f, -0.1f);
 			}
 			// poruszanie szescianem gora dol
 			if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
-				cubePos += glm::vec3(0.0f, 0.1f, 0.0f);
+				lightPos += glm::vec3(0.0f, 0.1f, 0.0f);
 			}
 			if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
-				cubePos += glm::vec3(0.0f, -0.1f, 0.0f);
+				lightPos += glm::vec3(0.0f, -0.1f, 0.0f);
 			}
 
 
@@ -292,7 +294,7 @@ int main() {
 			
 			colorShaders.Use();
 			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightColor"), 1, &LIGHT_COLOR_VEC[0]);
-			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightPos"), 1, &LIGHT_POS_VERT[0]);
+			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightPos"), 1, &lightPos[0]);
 			//colorShaders.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 			//colorShaders.setVec3("lightPos", LIGHT_POS_VERT);
 
@@ -308,7 +310,7 @@ int main() {
 			lightingShader.use();
 			lightingShader.setVec3("objectColor", 0.0f, 0.9f, 0.9f);
 			lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-			lightingShader.setVec3("lightPos", LIGHT_POS_VERT);
+			lightingShader.setVec3("lightPos", lightPos);
 
 			// world transformation
 			glm::mat4 model = glm::mat4(1.0f);
@@ -332,7 +334,7 @@ int main() {
 			lightSourceShader.setMat4("projection", projection);
 			lightSourceShader.setMat4("view", view);
 			model = glm::mat4(1.0f);
-			model = glm::translate(model, LIGHT_POS_VERT);
+			model = glm::translate(model, lightPos);
 			model = glm::scale(model, glm::vec3(1.0f)); // a smaller cube
 			lightSourceShader.setMat4("model", model);
 
