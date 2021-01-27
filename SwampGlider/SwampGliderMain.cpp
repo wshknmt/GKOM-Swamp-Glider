@@ -217,7 +217,7 @@ int main() {
 			Water* birdBody = new Water(glm::vec4(221.0f/255.0f, 119.0f / 255.0f, 70.0f / 255.0f, 1.0f));
 			objects.push_back(birdBody);
 			birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
-			birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, 11.0f, rand() % (int)WATER_SIZE/2.0f));
+			birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, 11.0f, /*rand() % (int)WATER_SIZE/2.0f)*/0.0f - WATER_SIZE / 2.0f));
 
 			Pipe* head = new Pipe(glm::vec4(255.0f / 255.0f, 105.0f / 255.0f, 180.0f / 255.0f, 1.0f), 0.5);
 			objects.push_back(head);
