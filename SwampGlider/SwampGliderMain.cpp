@@ -69,6 +69,49 @@ void generateLilies(std::vector<Object*>& objects) {
 		spawnLily(objects, glm::vec3{ rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2 - 1.0f, 1.06f, rand() % (int)WATER_SIZE * 1.0f - WATER_SIZE / 2 - 1.0f});
 }
 
+void generateMountains(std::vector<Object*>& objects) {
+	Cone* mountain1 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
+	objects.push_back(mountain1);
+	mountain1->scale(glm::vec3(10.0f, 20.0f, 10.0f));
+	mountain1->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+	mountain1->move(glm::vec3(-80.0f, 0.0f, 0.0f));
+
+	Cone* mountain2 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
+	objects.push_back(mountain2);
+	mountain2->scale(glm::vec3(2.5f, 5.0f, 2.5f));
+	mountain2->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+	mountain2->move(glm::vec3(0.0f, 15.01f, 0.0f));
+	mountain2->setParent(mountain1);
+
+	Cone* mountain3 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
+	objects.push_back(mountain3);
+	mountain3->scale(glm::vec3(5.0f, 10.0f, 5.0f));
+	mountain3->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+	mountain3->move(glm::vec3(0.0f, 0.0f, 10.0f));
+	mountain3->setParent(mountain1);
+
+	Cone* mountain4 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
+	objects.push_back(mountain4);
+	mountain4->scale(glm::vec3(5.0f, 15.0f, 5.0f));
+	mountain4->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+	mountain4->move(glm::vec3(0.0f, 0.0f, -8.0f));
+	mountain4->setParent(mountain1);
+
+	Cone* mountain5 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
+	objects.push_back(mountain5);
+	mountain5->scale(glm::vec3(0.9f, 3.0f, 0.9f));
+	mountain5->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+	mountain5->move(glm::vec3(0.0f, 12.26f, 0.0f));
+	mountain5->setParent(mountain4);
+
+	Cone* mountain6 = new Cone(glm::vec4(125.0f / 255.0f, 98.0f / 255.0f, 72.0f / 255.0f, 1.0f));
+	objects.push_back(mountain6);
+	mountain6->scale(glm::vec3(2.5f, 5.0f, 2.5f));
+	mountain6->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
+	mountain6->move(glm::vec3(11.0f, 0.0f, 0.0f));
+	mountain6->setParent(mountain1);
+}
+
 int main() {
 	srand(time(NULL));
 	if (glfwInit() != GL_TRUE) {
@@ -98,7 +141,7 @@ int main() {
 
 		// Setup camera object
 		glm::vec3 positionVector = glm::vec3(-20, 5, -20);
-		GLfloat hAngle = 0.785f;
+		GLfloat hAngle = 1.0f;
 		GLfloat vAngle = 0.0f;
 		GLfloat movementSpeed = 0.09f;
 		GLfloat mouseSpeed = 0.005f;
@@ -202,7 +245,7 @@ int main() {
 		bottomOfPropellerCylinder->setParent(glider);
 
 		//propeller guard
-		Pipe* propellerGuard = new Pipe(glm::vec4(1.0f, 215.0f/255.0f, 0.0f, 1.0f), 0.9f);
+		Pipe* propellerGuard = new Pipe(glm::vec4(1.0f, 215.0f / 255.0f, 0.0f, 1.0f), 0.9f);
 		objects.push_back(propellerGuard);
 		propellerGuard->move(glm::vec3(-3.75f, 4.2f, 0.0f));
 		propellerGuard->scale(glm::vec3(0.27f, 1.5f, 1.5f));
@@ -243,7 +286,7 @@ int main() {
 		for (int i = 0; i < (int)WINGS_NUM; ++i) {
 			Cone* cone = new Cone(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 			cone->move(glm::vec3(-0.15f, 0.0f, 0.0f));
-			cone->rotate(glm::vec3(i * (360.0f/WINGS_NUM), 0.0f, 0.0f));
+			cone->rotate(glm::vec3(i * (360.0f / WINGS_NUM), 0.0f, 0.0f));
 			cone->scale(glm::vec3(0.05f, 1.3f, 0.2f));
 			cone->setParent(propellerGuard);
 			propeller.push_back(cone);
@@ -282,7 +325,7 @@ int main() {
 			Cuboid* birdBody = new Cuboid(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 			objects.push_back(birdBody);
 			birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
-			birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, (GLfloat)altitude / 100.0f, 0.0f - WATER_SIZE / 2.0f));
+			birdBody->move(glm::vec3(0.0f - WATER_SIZE / 2.0f, (GLfloat)altitude / 100.0f, 0.0f - WATER_SIZE / 2.0f));
 			
 			Pipe* head = new Pipe(glm::vec4(65.0f / 255.0f, 0.0f / 255.0f, 93.0f / 255.0f, 1.0f), 0.5);
 			objects.push_back(head);
@@ -321,55 +364,14 @@ int main() {
 		}
 
 		//volcano
-		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		Cone* volcano = new Cone(glm::vec4(120.0f / 255.0f, 60.0f / 255.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		objects.push_back(volcano);
 		volcano->scale(glm::vec3(10.0f, 20.0f, 10.0f));
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
-		//mountains
-		Cone* mountain1 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f/255.0f, 1.0f));
-		objects.push_back(mountain1);
-		mountain1->scale(glm::vec3(10.0f, 20.0f, 10.0f));
-		mountain1->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		mountain1->move(glm::vec3(-80.0f, 0.0f, 0.0f));
-
-		Cone* mountain2 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
-		objects.push_back(mountain2);
-		mountain2->scale(glm::vec3(2.5f, 5.0f, 2.5f));
-		mountain2->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		mountain2->move(glm::vec3(0.0f, 15.01f, 0.0f));
-		mountain2->setParent(mountain1);
-
-		Cone* mountain3 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
-		objects.push_back(mountain3);
-		mountain3->scale(glm::vec3(5.0f, 10.0f, 5.0f));
-		mountain3->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		mountain3->move(glm::vec3(0.0f,0.0f, 10.0f));
-		mountain3->setParent(mountain1);
-
-		Cone* mountain4 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
-		objects.push_back(mountain4);
-		mountain4->scale(glm::vec3(5.0f, 15.0f, 5.0f));
-		mountain4->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		mountain4->move(glm::vec3(0.0f, 0.0f, -8.0f));
-		mountain4->setParent(mountain1);
-
-		Cone* mountain5 = new Cone(glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f));
-		objects.push_back(mountain5);
-		mountain5->scale(glm::vec3(1.0f, 3.0f, 1.0f));
-		mountain5->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		mountain5->move(glm::vec3(0.0f, 12.26f, 0.0f));
-		mountain5->setParent(mountain4);
-
-		Cone* mountain6 = new Cone(glm::vec4(125.0f / 255.0f, 98.0f / 255.0f, 72.0f / 255.0f, 1.0f));
-		objects.push_back(mountain6);
-		mountain6->scale(glm::vec3(2.5f, 5.0f, 2.5f));
-		mountain6->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-		mountain6->move(glm::vec3(11.0f, 0.0f, 0.0f));
-		mountain6->setParent(mountain1);
-
 		generateLilies(objects);
+		generateMountains(objects);
 		
 		Skybox skybox = Skybox();
 

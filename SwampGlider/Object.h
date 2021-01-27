@@ -41,10 +41,8 @@ public:
 	void initialize();
 	void draw(GLint shaderId);
 	void move(const glm::vec3& vector);
-	void move2(const glm::vec3& vector);
 	void scale(const glm::vec3& vector);
 	void rotate(const glm::vec3& vector);
-	void rotate2(const glm::vec3& vector);
 	glm::mat4 getModel();
 	void setParent(Object* parent);
 	bool isTextured();

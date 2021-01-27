@@ -11,7 +11,6 @@ public:
 	}
 
 	Glider(glm::vec4 color) : Object(color) {
-		//this->textureRepetitions = 0.0f; // to i tak jest nieuzywane
 		initialize();
 	}
 
