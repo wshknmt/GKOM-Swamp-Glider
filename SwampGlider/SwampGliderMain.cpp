@@ -340,7 +340,6 @@ int main() {
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
-<<<<<<< HEAD
 		//mountains
 		Cone* mountain1 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f/255.0f, 1.0f));
 		objects.push_back(mountain1);
@@ -387,9 +386,10 @@ int main() {
 		generateLilies(objects, numberOfLilies);
 		
 		Skybox skybox = Skybox();
-=======
+
 		glm::vec3 lightPos = LIGHT_POS_VERT;
->>>>>>> 24c9294... Poprawione indicesy glidera i umozliwienie ruszania swiatlem
+
+		glm::vec3 lightColor = LIGHT_COLOR_VEC;
 
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
@@ -470,6 +470,20 @@ int main() {
 				lightPos += glm::vec3(0.0f, -0.1f, 0.0f);
 			}
 
+			// zmiana koloru swiatla
+			if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+				lightColor = glm::vec3(1.0f, 0.0f, 0.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+				lightColor = glm::vec3(0.0f, 1.0f, 0.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+				lightColor = glm::vec3(0.0f, 0.0f, 1.0f);
+			}
+			if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
+				lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+			}
+
 
 			for (int i = 0; i < (int)WINGS_NUM; i++) {
 				propeller[i]->rotate(glm::vec3(0.5f, 0.0f, 0.0f));
@@ -507,7 +521,7 @@ int main() {
 			}
 			
 			colorShaders.Use();
-			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightColor"), 1, &LIGHT_COLOR_VEC[0]);
+			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightColor"), 1, &lightColor[0]);
 			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightPos"), 1, &lightPos[0]);
 			//colorShaders.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 			//colorShaders.setVec3("lightPos", LIGHT_POS_VERT);
