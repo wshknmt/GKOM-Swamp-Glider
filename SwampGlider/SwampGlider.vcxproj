@@ -97,6 +97,12 @@
     <Image Include="glider.png" />
     <Image Include="iipw.png" />
     <Image Include="pobrane.png" />
+    <Image Include="s1.png" />
+    <Image Include="s2.png" />
+    <Image Include="s3.png" />
+    <Image Include="s4.png" />
+    <Image Include="s5.png" />
+    <Image Include="s6.png" />
     <Image Include="Skybox\1.jpg" />
     <Image Include="Skybox\2.jpg" />
     <Image Include="Skybox\3.jpg" />

@@ -21,12 +21,12 @@ private:
 	std::vector<float> skyboxVertices;
 
 	std::vector<std::string> faces {
-		"test1.png",
-		"test1.png",
-		"test1.png",
-		"test1.png",
-		"test1.png",
-		"test1.png"
+		"s3.png",
+		"s1.png",
+		"s5.png",
+		"s6.png",
+		"s2.png",
+		"s4.png"
 	};
 
 	unsigned int loadCubemap(std::vector<std::string> faces);

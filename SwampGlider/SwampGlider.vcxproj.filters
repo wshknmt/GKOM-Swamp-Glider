@@ -46,6 +46,12 @@
     <Image Include="test1.png" />
     <Image Include="bagno.png" />
     <Image Include="glider.png" />
+    <Image Include="s1.png" />
+    <Image Include="s2.png" />
+    <Image Include="s3.png" />
+    <Image Include="s4.png" />
+    <Image Include="s5.png" />
+    <Image Include="s6.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="swampGliderColor.frag" />
