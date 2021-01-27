@@ -73,6 +73,11 @@ int main() {
 		cout << "GLFW initialization failed" << endl;
 		return -1;
 	}
+	GLfloat turbo;
+	GLfloat birdPositionX = 0;
+	GLfloat birdPositionZ = 0;
+	GLfloat birdRotateCounter = 0;
+	bool up = 0;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -106,7 +111,7 @@ int main() {
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");		
 
 		// water
-		Water* water = new Water("water.jpg");
+		Water* water = new Water("bagno.png");
 		objects.push_back(water);
 		water->scale(glm::vec3(WATER_SIZE, 3.0f, WATER_SIZE));
 		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
@@ -193,6 +198,45 @@ int main() {
 			objects.push_back(cone);
 		}
 
+		//bird
+		Water* birdBody = new Water(glm::vec4(221.0f/255.0f, 119.0f / 255.0f, 70.0f / 255.0f, 1.0f));
+		objects.push_back(birdBody);
+		birdBody->scale(glm::vec3(2.5f, 1.0f, 0.25f));
+		birdBody->move(glm::vec3(0.0f - WATER_SIZE/2.0f, 11.0f, 0.0f));
+
+		Pipe* head = new Pipe(glm::vec4(255.0f / 255.0f, 105.0f / 255.0f, 180.0f / 255.0f, 1.0f), 0.5);
+		objects.push_back(head);
+		head->rotate(glm::vec3(0.0f, 90.0f, 0.0f));
+		head->move(glm::vec3(0.0f, 0.85f, 1.2f));
+		head->scale(glm::vec3(0.15f, 0.4f, 0.4f));
+		head->setParent(birdBody);
+
+		Cone* wing1 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
+		objects.push_back(wing1);
+		wing1->scale(glm::vec3(0.7f, 1.4f, 0.1f));
+		wing1->rotate(glm::vec3(45.0f, 0.0f, 0.0f));
+		wing1->setParent(birdBody);
+
+		Cone* wing2 = new Cone(glm::vec4(255.0f / 255.0f, 140.0f / 255.0f, 0.0f, 1.0f));
+		objects.push_back(wing2);
+		wing2->scale(glm::vec3(0.7f, 1.4f, 0.1f));
+		wing2->rotate(glm::vec3(-45.0f, 0.0f, 0.0f));
+		wing2->setParent(birdBody);
+
+		Cone* tail = new Cone(glm::vec4(76.0f / 255.0f, 116.0f / 255.0f, 77.0f/255.0f, 1.0f));
+		objects.push_back(tail);
+		tail->scale(glm::vec3(0.03f, 0.8f, 0.1f));
+		tail->move(glm::vec3(-1.2f, 0.45f, 0.0f));
+		tail->rotate(glm::vec3(0.0f, 0.0f, 45.0f));
+		tail->setParent(birdBody);
+
+		Cone* beak = new Cone(glm::vec4(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f));
+		objects.push_back(beak);
+		beak->scale(glm::vec3(0.1f, 0.7f, 0.1f));
+		beak->move(glm::vec3(0.0f, 0.0f, 0.4f));
+		beak->rotate(glm::vec3(90.0f, 0.0f, 0.0f));
+		beak->setParent(head);
+
 		//volcano
 		Cone* volcano = new Cone(glm::vec4(120.0f/255.0f, 60.0f/255.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		objects.push_back(volcano);
@@ -208,35 +252,36 @@ int main() {
 		// main event loop
 		while (!glfwWindowShouldClose(window)) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-				glider->move(glm::vec3(0.1f, 0.0f, 0.0f));
+				glider->move(glm::vec3(0.1f + turbo, 0.0f, 0.0f));
 				for (int i = 0; i < (int)WINGS_NUM; ++i)
 					propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
 			}
 			if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-				glider->move(glm::vec3(-0.1f, 0.0f, 0.0f));
+				glider->move(glm::vec3(-0.1f - turbo, 0.0f, 0.0f));
 				for (int i = 0; i < (int)WINGS_NUM; ++i)
 					propeller[i]->rotate(glm::vec3(40.0f, 0.0f, 0.0f));
 			}
 			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-				glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
+				if((glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS))
+					glider->rotate(glm::vec3(0.0f, -1.0f, 0.0f));
 
-				for (int i = 0; i < 3; ++i) 
-					steeringWheelInterior[i]->rotate(glm::vec3(5.0f, 0.0f, 0.0f));
-				
-				steerPosition -= 5.0f;
+				for (int i = 0; i < 3; ++i)
+						steeringWheelInterior[i]->rotate(glm::vec3(5.0f, 0.0f, 0.0f));
 				if (rudder->rudderCounter <= 45.0f) {
+					
 					rudder->rotate(glm::vec3(0.0f, -2.0f, 0.0f));
 					rudder->rudderCounter += 2.0f;
 				}
 			} 
-			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-				glider->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
+			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS ) {
+				if ((glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS))
+					glider->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
 
-				for (int i = 0; i < 3; ++i) 
-					steeringWheelInterior[i]->rotate(glm::vec3(-5.0f, 0.0f, 0.0f));
-			
-				steerPosition += 5.0f;
+					for (int i = 0; i < 3; ++i)
+						steeringWheelInterior[i]->rotate(glm::vec3(-5.0f, 0.0f, 0.0f));
 				if (rudder->rudderCounter >= -45.0f) {
+					
+
 					rudder->rotate(glm::vec3(0.0f, 2.0f, 0.0f));
 					rudder->rudderCounter -= 2.0f;
 				}
@@ -244,11 +289,44 @@ int main() {
 			if (glfwGetKey(window, GLFW_KEY_LEFT) != GLFW_PRESS && glfwGetKey(window, GLFW_KEY_RIGHT) != GLFW_PRESS) {
 				rudder->rotate(glm::vec3(0.0f, rudder->rudderCounter, 0.0f));
 				rudder->rudderCounter = 0.0f;
-				for (int i = 0; i < 3; ++i)
-					steeringWheelInterior[i]->rotate(glm::vec3(steerPosition, 0.0f, 0.0f));
-		
-				steerPosition = 0.0f;
 			}
+			if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+				turbo = 1.0f;
+			else
+				turbo = 0.0f;
+			birdBody->move(glm::vec3(BIRD_SPEED, 0.0f, 0.0f));
+			birdPositionX += BIRD_SPEED;
+			if (birdPositionX >= WATER_SIZE)
+			{
+				GLfloat randomizeZ = rand() % (int)WATER_SIZE;
+				birdPositionZ += randomizeZ;
+				birdBody->move(glm::vec3(WATER_SIZE * -1.0f, 0.0f, randomizeZ));
+				birdPositionX -= WATER_SIZE;
+				if (birdPositionZ >= WATER_SIZE)
+				{
+					birdBody->move(glm::vec3(0.0f, 0.0f, 0.0f - WATER_SIZE));
+					birdPositionZ -= WATER_SIZE;
+				}
+					
+			}
+			if (up) {
+				wing1->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+				wing2->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+				birdRotateCounter--;
+				if (birdRotateCounter == 0)
+					up = !up;
+			}
+			else {
+				wing1->rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+				wing2->rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+				birdRotateCounter++;
+				if (birdRotateCounter == 90)
+					up = !up;
+			}
+			
+			
+
+
 
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

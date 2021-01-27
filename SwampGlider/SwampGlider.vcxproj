@@ -93,6 +93,7 @@
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bagno.png" />
     <Image Include="iipw.png" />
     <Image Include="pobrane.png" />
     <Image Include="Skybox\1.jpg" />
