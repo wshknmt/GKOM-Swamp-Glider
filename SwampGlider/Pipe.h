@@ -29,10 +29,8 @@ private:
 			vertices.push_back(R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));			
 			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
-			vertices.push_back(color[0]);
-			vertices.push_back(color[1]);
-			vertices.push_back(color[2]);
-			vertices.push_back(color[3]);
+			for (int i = 0; i < 4; ++i)
+				vertices.push_back(color[i]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
@@ -48,10 +46,8 @@ private:
 			vertices.push_back(R * minorRadiusRatio * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(R * minorRadiusRatio * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
-			vertices.push_back(color[0]);
-			vertices.push_back(color[1]);
-			vertices.push_back(color[2]);
-			vertices.push_back(color[3]);
+			for (int i = 0; i < 4; ++i)
+				vertices.push_back(color[i]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
@@ -67,10 +63,8 @@ private:
 			vertices.push_back(R * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
-			vertices.push_back(color[0]);
-			vertices.push_back(color[1]);
-			vertices.push_back(color[2]);
-			vertices.push_back(color[3]);
+			for (int i = 0; i < 4; ++i)
+				vertices.push_back(color[i]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
@@ -86,10 +80,8 @@ private:
 			vertices.push_back(R * minorRadiusRatio * cos(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			vertices.push_back(R * minorRadiusRatio * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
-			vertices.push_back(color[0]);
-			vertices.push_back(color[1]);
-			vertices.push_back(color[2]);
-			vertices.push_back(color[3]);
+			for (int i = 0; i < 4; ++i)
+				vertices.push_back(color[i]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
@@ -101,14 +93,6 @@ private:
 	}
 
 	void setIndices() override {
-
-		/*for (int i = 0; i < CIRCLE_VERTS - 2; ++i) {
-			// podstawa gorna
-			indices.push_back(0);
-			indices.push_back(i + 1);
-			indices.push_back(i + 2);
-		}*/
-
 		for (int i = 0; i < CIRCLE_VERTS; ++i) {
 			// podstawa gorna
 			indices.push_back(i % CIRCLE_VERTS);

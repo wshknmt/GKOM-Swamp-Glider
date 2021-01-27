@@ -88,15 +88,33 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SwampGliderMain.cpp" />
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bagno.png" />
+    <Image Include="glider.png" />
     <Image Include="iipw.png" />
+    <Image Include="pobrane.png" />
+    <Image Include="s1.png" />
+    <Image Include="s2.png" />
+    <Image Include="s3.png" />
+    <Image Include="s4.png" />
+    <Image Include="s5.png" />
+    <Image Include="s6.png" />
+    <Image Include="Skybox\1.jpg" />
+    <Image Include="Skybox\2.jpg" />
+    <Image Include="Skybox\3.jpg" />
+    <Image Include="Skybox\4.jpg" />
+    <Image Include="Skybox\5.jpg" />
+    <Image Include="Skybox\6.jpg" />
+    <Image Include="test1.png" />
     <Image Include="water.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="consts.h" />
     <ClInclude Include="Cylinder.h" />
@@ -104,15 +122,13 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Rudder.h" />
-    <ClInclude Include="shader.h" />
     <ClInclude Include="shprogram.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lighting.frag" />
-    <None Include="lighting.vert" />
-    <None Include="lightSource.frag" />
-    <None Include="lightSource.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
     <None Include="swampGliderColor.frag" />
     <None Include="swampGliderColor.vert" />
     <None Include="swampGliderTexture.frag" />

@@ -8,11 +8,17 @@ class Cone : public Object {
 
 public:
 
-	Cone(glm::vec4 color) : Object(color) {
+	Cone(glm::vec4 color) : Object(color), secondColor(color) {
+		initialize();
+	}
+
+	Cone(glm::vec4 color, glm::vec4 secondColor) : Object(color), secondColor(secondColor) {
 		initialize();
 	}
 
 private:
+	glm::vec4 secondColor;
+
 	void setVertices() override {
 
 		const GLfloat R = 1.0f;
@@ -23,15 +29,8 @@ private:
 			vertices.push_back(0.0f);
 			vertices.push_back(-R * sin(glm::radians(360.0f / CIRCLE_VERTS * i)));
 			// kolory
-			/*vertices.push_back((rand() % 255) / 255.0f);
-			vertices.push_back((rand() % 255) / 255.0f);
-			vertices.push_back((rand() % 255) / 255.0f);
-			vertices.push_back((rand() % 255) / 255.0f);*/
-
-			vertices.push_back(color[0]);
-			vertices.push_back(color[1]);
-			vertices.push_back(color[2]);
-			vertices.push_back(color[3]);
+			for (int i = 0; i < 4; ++i)
+				vertices.push_back(color[i]);
 			// tekstura
 			vertices.push_back(0.0f);
 			vertices.push_back(0.0f);
@@ -46,15 +45,18 @@ private:
 		vertices.push_back(1.0f);
 		vertices.push_back(0.0f);
 		// kolory
-		/*vertices.push_back(1.0f);
-		vertices.push_back(127.0f/255.0f);
-		vertices.push_back(0);
-		vertices.push_back(color[3]);*/
-		vertices.push_back(1.0f);
-		vertices.push_back(0.0f);
-		vertices.push_back(0.0f);
-		vertices.push_back(color[3]);
+		for (int i = 0; i < 4; ++i)
+			vertices.push_back(secondColor[i]);
 		// tekstura
+		vertices.push_back(0.0f);
+		vertices.push_back(0.0f);
+		// normalne
+		vertices.push_back(0.0f);
+		vertices.push_back(0.0f);
+		vertices.push_back(0.0f);
+
+		// normalne
+		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 		vertices.push_back(0.0f);
 		// normalne
@@ -92,18 +94,6 @@ private:
 			indices.push_back(i % CIRCLE_VERTS);
 			indices.push_back((i + 1) % CIRCLE_VERTS);
 			indices.push_back(CIRCLE_VERTS);
-
-			/*indices.push_back(i % CIRCLE_VERTS);
-			indices.push_back(CIRCLE_VERTS + (i % CIRCLE_VERTS));
-			indices.push_back(CIRCLE_VERTS + ((i + 1) % CIRCLE_VERTS));*/
 		}
-
-		/*for (int i = 0; i < CIRCLE_VERTS - 2; ++i) {
-			// podstawa dolna
-			indices.push_back(CIRCLE_VERTS);
-			indices.push_back(i + 1 + CIRCLE_VERTS);
-			indices.push_back(i + 2 + CIRCLE_VERTS);
-		}*/
-
 	}
 };
