@@ -38,5 +38,9 @@
 * Dodanie kierownicy 
 * Wprowadzenie ruchu ślizgacza, wiatraka, kierownicy oraz steru tylnego 
 * Dodanie losowego generowania lilii 
-* Dodanie skyboxa
+* Dodanie skyboxa 
+* Dodanie ptaków
+* Dodanie gór
+* Teksturowanie ślizgacza oraz bagna
+* Przygotowanie obrazków do skyboxa
 ### 4. Oświetlenie
