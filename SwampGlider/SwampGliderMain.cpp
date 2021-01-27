@@ -507,6 +507,8 @@ int main() {
 			glm::mat4 projection = PROJECTION_MATRIX;
 
 			textureShaders.Use();
+			glUniform3fv(glGetUniformLocation(textureShaders.get_programID(), "lightColor"), 1, &lightColor[0]);
+			glUniform3fv(glGetUniformLocation(textureShaders.get_programID(), "lightPos"), 1, &lightPos[0]);
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			
