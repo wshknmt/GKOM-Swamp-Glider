@@ -17,7 +17,6 @@ Object::~Object() {
 	glDeleteBuffers(1, &EBO);
 }
 
-
 void Object::initialize() {
 	setVertices();
 	setIndices();
@@ -107,10 +106,6 @@ void Object::draw(GLint shaderId) {
 void Object::move(const glm::vec3& vector) {
 	model = glm::translate(model, vector);
 
-}
-
-void Object::move2(const glm::vec3& vector) {
-	model = translate(glm::mat4(1.0f), vector) * model;
 }
 
 void Object::scale(const glm::vec3& vector) {
