@@ -5,7 +5,7 @@
 ![szkic_tyl](./Docs/Pictures/szkic_tyl.png)
 
 ## Zrzut ekranu z aktualnej wersji projektu
-![aktualny_stan5](./Docs/Pictures/aktualny_stan5.png)
+![aktualny_stan5](./Docs/Pictures/aktualny_stan6.png)
 
 ## Lista zadań
 * Model ślizgacza
