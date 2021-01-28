@@ -5,7 +5,7 @@
 ![szkic_tyl](./Docs/Pictures/szkic_tyl.png)
 
 ## Zrzut ekranu z aktualnej wersji projektu
-![aktualny_stan0](./Docs/Pictures/aktualny_stan0.png)
+![aktualny_stan5](./Docs/Pictures/aktualny_stan5.png)
 
 ## Lista zadań
 * Model ślizgacza
@@ -14,12 +14,33 @@
 * Otoczenie
 * Ruch
 
-## Wstępne punkty kontrolne
+## Punkty kontrolne
 ### 0. Wstępna wersja projektu
-* Działający szkielet programu
-* Plik README.md
+* Działający szkielet programu 
+* Plik README.md 
 * Szkic koncepcyjny ślizgacza
 ### 1. Prostopadłościan w przestrzeni z nałożoną teksturą
-### 2. Dopracowanie szczegółów modelu ślizgacza
-### 3. Przygotowanie otoczenia
-### 4. Wprowadzenie ruchu oraz animacji do projektu
+* Stworzenie prostopadłościanu 
+* Dodanie obrotu do prostopadłościanu 
+### 2. Dodanie kamery
+* Wprowadzenie do projektu kamery oraz jej ruchu
+### 3. Tworzenie obiektów
+* Stworzenie ogólnej klasy reprezentującej obiekty 
+* Wprowadzenie podstawowego kształtu ślizgacza do sceny 
+* Dodanie obiektu reprezentującego wodę oraz jego oteksturowanie 
+* Dodanie tylnego steru do ślizgacza 
+* Dodanie klasy reprezentującej cylider 
+* Dostosowanie shaderów do poprawnej obsługi kolorów 
+* Dodanie obiektu reprezentującego rurę 
+* Dodanie osłony wiatraka oraz podstawki pod osłonę 
+* Dodanie wiatraka 
+* Wprowadzenie hierarchii obiektów w celu ułatwienia ich rysowania oraz przemieszczania 
+* Dodanie kierownicy 
+* Wprowadzenie ruchu ślizgacza, wiatraka, kierownicy oraz steru tylnego 
+* Dodanie losowego generowania lilii 
+* Dodanie skyboxa 
+* Dodanie ptaków
+* Dodanie gór
+* Teksturowanie ślizgacza oraz bagna
+* Przygotowanie obrazków do skyboxa
+### 4. Oświetlenie
