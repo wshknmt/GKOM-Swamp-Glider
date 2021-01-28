@@ -80,7 +80,7 @@ void generateMountains(std::vector<Object*>& objects) {
 	objects.push_back(mountain2);
 	mountain2->scale(glm::vec3(2.5f, 5.0f, 2.5f));
 	mountain2->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
-	mountain2->move(glm::vec3(0.0f, 15.01f, 0.0f));
+	mountain2->move(glm::vec3(0.0f, 15.02f, 0.0f));
 	mountain2->setParent(mountain1);
 
 	Cone* mountain3 = new Cone(glm::vec4(144.0f / 255.0f, 123.0f / 255.0f, 90.0f / 255.0f, 1.0f));
@@ -442,6 +442,28 @@ int main() {
 				}
 			}
 
+
+			for (int i = 0; i < wings.size(); i += 2) {
+				if (up) {
+					objects[wings[i]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
+					objects[wings[i + 1]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
+					birdRotateCounter[i / 2] -= 2;
+					if (birdRotateCounter[i / 2] <= 0.0f)
+						up = !up;
+				}
+				else {
+					objects[wings[i]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
+					objects[wings[i + 1]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
+					birdRotateCounter[i / 2] += 2;
+					if (birdRotateCounter[i / 2] >= 90.0f)
+						up = !up;
+				}
+
+			}
+
+			shark->move(glm::vec3(0.32f, 0.0f, 0.0f));
+			shark->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
+
 			// poruszanie szescianem przod tyl
 			if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
 				lightPos += glm::vec3(0.1f, 0.0f, 0.0f);
@@ -494,25 +516,6 @@ int main() {
 				lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 			}
 
-			for (int i = 0; i < wings.size(); i+=2) {
-				if (up) {
-					objects[wings[i]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
-					objects[wings[i+1]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
-					birdRotateCounter[i/2] -= 2;
-					if (birdRotateCounter[i/2] <= 0.0f)
-						up = !up;
-				} else {
-					objects[wings[i]]->rotate(glm::vec3(2.0f, 0.0f, 0.0f));
-					objects[wings[i + 1]]->rotate(glm::vec3(-2.0f, 0.0f, 0.0f));
-					birdRotateCounter[i/2] += 2;
-					if (birdRotateCounter[i/2] >= 90.0f)
-						up = !up;
-				}
-
-			}
-
-			shark->move(glm::vec3(0.32f, 0.0f, 0.0f));
-			shark->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
 
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
