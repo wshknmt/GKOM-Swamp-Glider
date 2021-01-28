@@ -369,6 +369,13 @@ int main() {
 		volcano->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
 		volcano->move(glm::vec3(80.0f, 0.0f, 0.0f));
 
+		//shark
+		Cone* shark = new Cone(glm::vec4(52.0f / 255.0f, 54.0f / 255.0f, 58.0f / 255.0f, 1.0f));
+		objects.push_back(shark);
+		shark->move(glm::vec3(0.0f, 0.0f, 20.0f));
+		shark->scale(glm::vec3(0.7f, 1.5f, 0.1f));
+		shark->setParent(glider);
+
 		generateLilies(objects);
 		generateMountains(objects);
 		
@@ -503,6 +510,11 @@ int main() {
 				}
 
 			}
+
+			shark->move(glm::vec3(0.32f, 0.0f, 0.0f));
+			shark->rotate(glm::vec3(0.0f, 1.0f, 0.0f));
+
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			camera.refresh();
