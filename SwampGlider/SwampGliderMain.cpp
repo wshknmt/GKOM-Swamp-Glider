@@ -560,8 +560,8 @@ int main() {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// 0. create depth cubemap transformation matrices
-			float near_plane = 0.5f;
-			float far_plane = 100.0f;
+			float near_plane = 1.0f;
+			float far_plane = 150.0f;
 			glm::mat4 shadowProj = glm::perspective(glm::radians(90.0f), (float)SHADOW_WIDTH / (float)SHADOW_HEIGHT, near_plane, far_plane);
 			std::vector<glm::mat4> shadowTransforms;
 			shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
