@@ -229,15 +229,14 @@ int main() {
 		glider->scale(glm::vec3(1.0f, 2.0f, 1.0f));
 
 		//rudder
-		Rudder* rudder = new Rudder(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		Rudder* rudder = new Rudder(glm::vec4(0.83f, 0.67f, 0.22f, 1.0f));
 		objects.push_back(rudder);
 		rudder->move(glm::vec3(-3.9f, -0.05f, 0.0f));
 		rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
 		rudder->scale(glm::vec3(1.3f, 2.0f, 1.0f));
 		rudder->setParent(glider);
-
 		//bottom of propeller
-		Cylinder* bottomOfPropellerCylinder = new Cylinder(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		Cylinder* bottomOfPropellerCylinder = new Cylinder(glm::vec4(0.45f, 0.45f, 0.45f, 1.0f));
 		objects.push_back(bottomOfPropellerCylinder);
 		bottomOfPropellerCylinder->move(glm::vec3(-3.76f, 2.3f, 0.0f));
 		bottomOfPropellerCylinder->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -245,14 +244,14 @@ int main() {
 		bottomOfPropellerCylinder->setParent(glider);
 
 		//propeller guard
-		Pipe* propellerGuard = new Pipe(glm::vec4(1.0f, 215.0f / 255.0f, 0.0f, 1.0f), 0.9f);
+		Pipe* propellerGuard = new Pipe(glm::vec4(0.83f, 0.67f, 0.22f, 1.0f), 0.9f);
 		objects.push_back(propellerGuard);
 		propellerGuard->move(glm::vec3(-3.75f, 4.2f, 0.0f));
 		propellerGuard->scale(glm::vec3(0.27f, 1.5f, 1.5f));
 		propellerGuard->setParent(glider);
 
 		//propeller long stick
-		Cylinder* propellerLongStick = new Cylinder(glm::vec4(0.0f, 0.5f, 0.5f, 1.0f));
+		Cylinder* propellerLongStick = new Cylinder(glm::vec4(0.45f, 0.45f, 0.45f, 1.0f));
 		objects.push_back(propellerLongStick);
 		propellerLongStick->move(glm::vec3(0.0f, 0.0f, 0.0f));
 		propellerLongStick->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -260,7 +259,7 @@ int main() {
 		propellerLongStick->setParent(propellerGuard);
 
 		//thick steering wheel stand
-		Cylinder* thickSteeringWheelStand = new Cylinder(glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+		Cylinder* thickSteeringWheelStand = new Cylinder(glm::vec4(0.45f, 0.45f, 0.45f, 1.0f));
 		objects.push_back(thickSteeringWheelStand);
 		thickSteeringWheelStand->move(glm::vec3(0.35f, 2.0f, 0.0f));
 		thickSteeringWheelStand->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -268,7 +267,7 @@ int main() {
 		thickSteeringWheelStand->setParent(glider);
 
 		//thin steering wheel stand
-		Cylinder* thinSteeringWheelStand = new Cylinder(glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
+		Cylinder* thinSteeringWheelStand = new Cylinder(glm::vec4(0.83f, 0.67f, 0.22f, 1.0f));
 		objects.push_back(thinSteeringWheelStand);
 		thinSteeringWheelStand->move(glm::vec3(0.0f, 0.5f, 0.0f));
 		thinSteeringWheelStand->rotate(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -276,7 +275,7 @@ int main() {
 		thinSteeringWheelStand->setParent(thickSteeringWheelStand);
 
 		//steering wheel
-		Pipe* steeringWheel = new Pipe(glm::vec4(1.0f, 115.0f / 255.0f, 0.2f, 1.0f), 0.7f);
+		Pipe* steeringWheel = new Pipe(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f), 0.7f);
 		objects.push_back(steeringWheel);
 		steeringWheel->move(glm::vec3(0.0f, 0.6f, 0.0f));
 		steeringWheel->scale(glm::vec3(0.045f, 0.4f, 0.4f));
@@ -295,7 +294,7 @@ int main() {
 		GLfloat steerPosition = 0.0f;
 		vector<Cone*> steeringWheelInterior;
 		for (int i = 0; i < 3; ++i) {
-			Cone* cone = new Cone(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+			Cone* cone = new Cone(glm::vec4(0.83f, 0.67f, 0.22f, 1.0f));
 			cone->move(glm::vec3(0.0f, 0.0f, 0.0f));
 			cone->rotate(glm::vec3(i * (360.0f / 3), 0.0f, 0.0f));
 			cone->scale(glm::vec3(0.05f, 0.4f, 0.07f));
