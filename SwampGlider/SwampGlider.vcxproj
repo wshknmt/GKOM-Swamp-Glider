@@ -114,11 +114,15 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Rudder.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="Cuboid.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="pointShadowsShader.frag" />
+    <None Include="pointShadowsShader.geom" />
+    <None Include="pointShadowsShader.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
     <None Include="swampGliderColor.frag" />

@@ -13,13 +13,13 @@ const glm::mat4 PROJECTION_MATRIX = glm::perspective(glm::radians(FIELD_OF_VIEW)
 const GLfloat WATER_TEX_REPS = 10.0f;
 const GLfloat WATER_SIZE = 200.0f;
 
-const GLuint CIRCLE_VERTS = 128;
+const GLuint CIRCLE_VERTS = 64;
 
 const GLfloat WINGS_NUM = 6.0f;
-const GLfloat BIRD_QUANTITY = 200;
+const GLfloat BIRD_QUANTITY = 60;
 const int BIRD_HIGHT_PARAM = 2000;
 
 const glm::vec3 LIGHT_POS_VERT(30.0f, 25.0f, 30.0f);
 const glm::vec3 LIGHT_COLOR_VEC(1.0f, 1.0f, 1.0f);
 
-const GLuint NUMBER_OF_LILIES = 80;
+const GLuint NUMBER_OF_LILIES = 50;

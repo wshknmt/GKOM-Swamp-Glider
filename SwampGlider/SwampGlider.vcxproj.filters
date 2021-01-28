@@ -20,6 +20,7 @@
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="Cuboid.h" />
+    <ClInclude Include="shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="water.jpg" />
@@ -40,5 +41,8 @@
     <None Include="swampGliderTexture.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
+    <None Include="pointShadowsShader.frag" />
+    <None Include="pointShadowsShader.vert" />
+    <None Include="pointShadowsShader.geom" />
   </ItemGroup>
 </Project>
