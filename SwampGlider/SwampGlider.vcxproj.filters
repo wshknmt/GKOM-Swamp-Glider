@@ -23,8 +23,6 @@
     <ClInclude Include="shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="water.jpg" />
-    <Image Include="test1.png" />
     <Image Include="bagno.png" />
     <Image Include="glider.png" />
     <Image Include="s1.png" />

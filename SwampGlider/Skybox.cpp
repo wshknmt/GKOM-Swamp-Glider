@@ -83,7 +83,6 @@ unsigned int Skybox::loadCubemap(std::vector<std::string> faces) {
 }
 
 void Skybox::setupBuffers() {
-
 	glGenVertexArrays(1, &skyboxVAO);
 	glGenBuffers(1, &skyboxVBO);
 	glBindVertexArray(skyboxVAO);

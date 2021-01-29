@@ -151,6 +151,5 @@ private:
 			indices.push_back(3 * CIRCLE_VERTS + (i % CIRCLE_VERTS));
 			indices.push_back(3 * CIRCLE_VERTS + ((i + 1) % CIRCLE_VERTS));
 		}
-
 	}
 };

@@ -6,18 +6,11 @@
 class Rudder : public Object {
 
 public:
-	GLfloat reps;
 	GLfloat rudderCounter = 0.0f;
-	Rudder(string textureName, GLfloat texture_repeats) : Object(textureName) {
-		this->reps = texture_repeats * 1.0f;
-		initialize();
-	}
 
 	Rudder(glm::vec4 color) : Object(color) {
-		this->reps = 0.0f; // to i tak jest nieuzywane
 		initialize();
 	}
-
 
 private:
 	void setVertices() override {
