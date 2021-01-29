@@ -101,8 +101,6 @@
     <Image Include="s4.png" />
     <Image Include="s5.png" />
     <Image Include="s6.png" />
-    <Image Include="test1.png" />
-    <Image Include="water.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

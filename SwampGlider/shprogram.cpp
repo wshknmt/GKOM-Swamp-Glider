@@ -1,4 +1,3 @@
-//#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -6,7 +5,6 @@ using namespace std;
 
 #define GLEW_STATIC
 #include <GL/glew.h>
-//#include <glm/glm.hpp>
 #include "shprogram.h"
 
 string read_shader_code(const GLchar* shaderPath)
@@ -119,12 +117,10 @@ ShaderProgram::ShaderProgram(const GLchar* vertexPath, const GLchar* fragmentPat
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vShaderCode, NULL);
     glCompileShader(vertex);
-    //checkCompileErrors(vertex, "VERTEX");
     // fragment Shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fShaderCode, NULL);
     glCompileShader(fragment);
-    //checkCompileErrors(fragment, "FRAGMENT");
     // if geometry shader is given, compile geometry shader
     unsigned int geometry;
     if (geometryPath != nullptr)
@@ -133,7 +129,6 @@ ShaderProgram::ShaderProgram(const GLchar* vertexPath, const GLchar* fragmentPat
         geometry = glCreateShader(GL_GEOMETRY_SHADER);
         glShaderSource(geometry, 1, &gShaderCode, NULL);
         glCompileShader(geometry);
-        //checkCompileErrors(geometry, "GEOMETRY");
     }
     // shader Program
     program_id = glCreateProgram();
@@ -142,7 +137,6 @@ ShaderProgram::ShaderProgram(const GLchar* vertexPath, const GLchar* fragmentPat
     if (geometryPath != nullptr)
         glAttachShader(program_id, geometry);
     glLinkProgram(program_id);
-    //checkCompileErrors(ID, "PROGRAM");
     // delete the shaders as they're linked into our program now and no longer necessery
     glDeleteShader(vertex);
     glDeleteShader(fragment);

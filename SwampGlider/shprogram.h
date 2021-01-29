@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 class ShaderProgram
 {
-	GLuint program_id; 	// The program ID
+	GLuint program_id; 	
 public:
 	// Constructor reads and builds the shader
 	ShaderProgram(const GLchar* vertexPath, const GLchar* fragmentPath);
@@ -32,7 +32,7 @@ public:
 	{
 		glUniform1i(glGetUniformLocation(program_id, name.c_str()), value);
 	}
-	// returns program ID
+	
 	GLuint get_programID() const
 	{
 		return program_id;

@@ -172,66 +172,14 @@ int main() {
 		glReadBuffer(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		// shader configuration
-		//shader.use();
-		//shader.setInt("diffuseTexture", 0);
-		//shader.setInt("shadowMap", 1);
-		//debugDepthQuad.use();
-		//debugDepthQuad.setInt("depthMap", 0);
-		
-		
 		// lighting
 		Shader lightSourceShader("lightSource.vert", "lightSource.frag");
-
-		float vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-		};
 
 		// configure the lightCube's VAO and VBO
 		unsigned int VBO;
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(LIGHT_CUBE_VERTS), LIGHT_CUBE_VERTS, GL_STATIC_DRAW);
 		// position attribute
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -249,13 +197,13 @@ int main() {
 		ShaderProgram textureShaders("swampGliderTexture.vert", "swampGliderTexture.frag");
 		ShaderProgram colorShaders("swampGliderColor.vert", "swampGliderColor.frag");		
 
-		// water
+		//water
 		Cuboid* water = new Cuboid("bagno.png");
 		objects.push_back(water);
 		water->scale(glm::vec3(WATER_SIZE, 3.0f, WATER_SIZE));
 		water->move(glm::vec3(0.0f, -1.0f, 0.0f));
 
-		// glider, duuh
+		//glider
 		Glider* glider = new Glider("glider.png");
 		objects.push_back(glider);
 		glider->move(glm::vec3(-3.0f, 0.01f, 0.0f));
@@ -268,6 +216,7 @@ int main() {
 		rudder->rotate(glm::vec3(0.0f, 180.0f, 0.0f));
 		rudder->scale(glm::vec3(1.3f, 2.0f, 1.0f));
 		rudder->setParent(glider);
+
 		//bottom of propeller
 		Cylinder* bottomOfPropellerCylinder = new Cylinder(glm::vec4(0.45f, 0.45f, 0.45f, 1.0f));
 		objects.push_back(bottomOfPropellerCylinder);
@@ -491,7 +440,6 @@ int main() {
 					if (birdRotateCounter[i / 2] >= 90.0f)
 						up = !up;
 				}
-
 			}
 
 			shark->move(glm::vec3(0.32f, 0.0f, 0.0f));
@@ -553,8 +501,6 @@ int main() {
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = PROJECTION_MATRIX;
 
-			// ################ GRANICA vvv
-
 			// render
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -579,6 +525,7 @@ int main() {
 
 			for (unsigned int i = 0; i < 6; ++i)
 				simpleDepthShader.setMat4("shadowMatrices[" + std::to_string(i) + "]", shadowTransforms[i]);
+			
 			simpleDepthShader.setFloat("far_plane", far_plane);
 			simpleDepthShader.setVec3("lightPos", lightPos);
 
@@ -591,13 +538,9 @@ int main() {
 			
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			
-
-			// ############## GRANICA ^^^^
 			glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			textureShaders.Use();
-			textureShaders.setMat4("projection", projection);
-			textureShaders.setMat4("view", view);
 			textureShaders.setInt("Texture", 0);
 			textureShaders.setInt("depthMap", 1);
 			glUniform3fv(glGetUniformLocation(textureShaders.get_programID(), "lightColor"), 1, &lightColor[0]);
@@ -607,7 +550,6 @@ int main() {
 			textureShaders.setInt("shadows", 1);
 			textureShaders.setFloat("far_plane", far_plane);
 			glActiveTexture(GL_TEXTURE0);
-			//glBindTexture(GL_TEXTURE_2D, woodTexture);
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
 			
@@ -617,19 +559,15 @@ int main() {
 			}
 			
 			colorShaders.Use();
-			colorShaders.setMat4("projection", projection);
-			colorShaders.setMat4("view", view);
 			colorShaders.setInt("Texture", 0);
 			colorShaders.setInt("depthMap", 1);
 			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightColor"), 1, &lightColor[0]);
 			glUniform3fv(glGetUniformLocation(colorShaders.get_programID(), "lightPos"), 1, &lightPos[0]);
-
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			colorShaders.setInt("shadows", 1);
 			colorShaders.setFloat("far_plane", far_plane);
 			glActiveTexture(GL_TEXTURE0);
-			//glBindTexture(GL_TEXTURE_2D, woodTexture);
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
 			
