@@ -43,4 +43,27 @@
 * Dodanie gór
 * Teksturowanie ślizgacza oraz bagna
 * Przygotowanie obrazków do skyboxa
+* Dodanie rekina
 ### 4. Oświetlenie
+* Zmiany w shaderach (dodanie oświetlenia)
+* Ustawienie normalnych we wszystkich obiektach
+* Zmiany w shaderach (dodanie cieni)
+* Dostosowanie programu tak, aby oświetlenie oraz cienie działały poprawnie
+
+## Sterowanie w programie
+* **strzałki** - sterowanie ślizgaczem (przód, tył, lewo, prawo)
+* przycisk **T** - turbo do ślizgacza
+* **W, S, A, D, myszka** - sterowanie kamerą (przód, tył, lewo, prawo)
+* przyciski **1 oraz 2** - przyspieszenie ruchu kamery (do przodu i do tyłu)
+* **Q, E** - poruszanie kamerą (góra, dół)
+* **I, K, J, L** - sterowanie źródłem światła (przód, tył, lewo, prawo)
+* **O, U** - poruszanie źródłem światła (góra, dół)
+* **Z, X, C, V, Z + X, Z + C, X + C** - zmiana koloru światła (Z - czerwony, X - zielony, C - niebieski, V - biały)
+
+## Dostępne stałe, które można zmieniać
+* liczba lilii
+* liczba ptaków
+* liczba skrzydeł wiatraka w ślizgaczu
+* dokładność rysowania kształtów owalnych
+* wysokość lotu ptaków
+* początkowa pozycja i kolor światła
